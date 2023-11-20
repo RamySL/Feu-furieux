@@ -1,5 +1,7 @@
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+package model;
+
+import controller_view.FenetreJeu;
+
 import javax.swing.Timer;
 
 public class Furfeux {

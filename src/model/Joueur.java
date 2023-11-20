@@ -1,3 +1,5 @@
+package model;
+
 public class Joueur {
     private CaseTraversable c;
     private int resistance;

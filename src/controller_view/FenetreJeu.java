@@ -1,7 +1,9 @@
+package controller_view;
+
+import model.Terrain;
+
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 
 public class FenetreJeu extends JPanel {
     private Terrain terrain;
@@ -17,7 +19,7 @@ public class FenetreJeu extends JPanel {
         setBackground(Color.LIGHT_GRAY);
         setPreferredSize(new Dimension(9 * tailleCase, 9 * tailleCase));
 
-        JFrame frame = new JFrame("Furfeux");
+        JFrame frame = new JFrame("model.Furfeux");
         this.frame = frame;
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.getContentPane().add(this);
