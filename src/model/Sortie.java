@@ -1,4 +1,8 @@
-public class Sortie extends CaseTraversable{
+package model;
+
+import model.CaseTraversable;
+
+public class Sortie extends CaseTraversable {
 
 
     public Sortie (int l, int c){

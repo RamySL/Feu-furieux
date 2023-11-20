@@ -1,4 +1,8 @@
-public class Hall extends CaseTraversable{
+package model;
+
+import model.CaseTraversable;
+
+public class Hall extends CaseTraversable {
 
     private boolean cle,aJoueur = false;
 
