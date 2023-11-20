@@ -50,6 +50,14 @@ public class Terrain {
 
     public Joueur getJoueur() { return this.joueur; }
 
+    public int getHauteur (){
+        return this.hauteur;
+    }
+
+    public int getLargeur (){
+        return this.largeur;
+    }
+
     public ArrayList<CaseTraversable> getVoisinesTraversables(int lig, int col) {
         /* À compléter */
     }

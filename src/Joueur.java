@@ -8,6 +8,10 @@ public class Joueur {
         this.cles = k;
     }
 
+    public int getResistance() {
+        return this.resistance;
+    }
+
     public void bouge(Case cible) {
         /* À compléter */
     }
