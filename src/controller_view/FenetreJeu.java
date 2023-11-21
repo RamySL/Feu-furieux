@@ -1,6 +1,6 @@
 package controller_view;
 
-import model.Terrain;
+import model.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -29,7 +29,70 @@ public class FenetreJeu extends JPanel {
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
+        this.paintAll (g);
         /* À compléter */    }
+
+    public void paintAll (Graphics g) {
+        // La méthode va desssiner tout les element du terrain
+        Case[][] carte = this.terrain.getCarte();
+
+        for (int l = 0; l < carte.length; l++) {
+            Case[] ligne = carte[l];
+            for (int c = 0; c < ligne.length; c++) {
+                Case cc = ligne[c];
+
+                if (cc instanceof Mur) {
+                    this.paintMurs(g, ((Mur) cc));
+                }
+
+                if (cc instanceof Hall) {
+                    this.paintHalls(g, ((Hall) cc));
+                }
+
+                if (cc instanceof Sortie) {
+                    this.paintSortie(g, ((Sortie) cc));
+                }
+
+                if (cc instanceof Porte){
+                    this.paintPorte(g, (Porte) cc);
+                }
+
+            }
+        }
+
+    }
+    public void paintMurs(Graphics g, Mur mur){
+
+        g.setColor(new Color(0,0,0));
+        g.fillRect(mur.getColone() * this.tailleCase, mur.getLigne() * this.tailleCase,this.tailleCase,this.tailleCase );
+    }
+
+    public void paintHalls (Graphics g, Hall hall){
+        // on a pas traité encore les chaleurs
+        g.setColor(new Color(255,255,255));
+        g.fillRect(hall.getColone() * this.tailleCase, hall.getLigne() * this.tailleCase,this.tailleCase,this.tailleCase );
+    }
+
+    public void paintSortie (Graphics g, Sortie sortie){
+        g.setColor(new Color(0,0,255));
+        g.fillRect(sortie.getColone() * this.tailleCase, sortie.getLigne() * this.tailleCase,this.tailleCase,this.tailleCase );
+    }
+
+    public void paintPorte (Graphics g, Porte porte){
+
+        if (porte.estTraversable()){
+            // porte ouverte
+            g.setColor(new Color(255,255,255));
+            g.fillRect(porte.getColone() * this.tailleCase, porte.getLigne() * this.tailleCase,this.tailleCase,this.tailleCase );
+        }else{
+            g.setColor(new Color(0,255,0));
+            g.fillRect(porte.getColone() * this.tailleCase, porte.getLigne() * this.tailleCase,this.tailleCase,this.tailleCase );
+        }
+
+    }
+
+    //public void paintJoueur (Graphics g, Joueur j){}
+
 
 
     public void ecranFinal(int n) {
@@ -41,5 +104,9 @@ public class FenetreJeu extends JPanel {
         label.setSize(this.getSize());
         frame.getContentPane().add(label);
         frame.repaint();
+    }
+
+    public static void main(String[] args) {
+
     }
 }

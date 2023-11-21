@@ -9,4 +9,7 @@ public abstract class Case {
             this.col = c;
         }
         public abstract boolean estTraversable();
+
+        public int getLigne (){return this.lig;}
+        public int getColone (){return this.col;}
 }
