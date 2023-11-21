@@ -17,7 +17,7 @@ public class FenetreJeu extends JPanel {
         this.terrain = t;
 
         setBackground(Color.LIGHT_GRAY);
-        setPreferredSize(new Dimension(9 * tailleCase, 9 * tailleCase));
+        setPreferredSize(new Dimension(this.largeur * tailleCase, this.hauteur * tailleCase));
 
         JFrame frame = new JFrame("model.Furfeux");
         this.frame = frame;
@@ -33,6 +33,7 @@ public class FenetreJeu extends JPanel {
 
 
     public void ecranFinal(int n) {
+        /* l'écran quand la partie s'est terminé */
         frame.remove(this);
         JLabel label = new JLabel("Score " + n);
         label.setFont(new Font("Verdana", 1, 20));

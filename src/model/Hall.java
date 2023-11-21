@@ -4,7 +4,8 @@ import model.CaseTraversable;
 
 public class Hall extends CaseTraversable {
 
-    private boolean cle,aJoueur = false;
+    private boolean cle;
+    private Joueur  joueur = null;
 
     public Hall (int l, int c){
         this (l,c,0,false);
@@ -28,11 +29,21 @@ public class Hall extends CaseTraversable {
     }
 
     public boolean estTraversable (){
-        return this.aJoueur;
+        return this.joueur == null;
+    }
+
+    public Joueur getJoueur (){
+        // retourne le joueur si il yen a sinon retourne null
+
+        if ( ! this.estTraversable()){
+            return this.joueur;
+        }else {
+            return null;
+        }
     }
 
     public void entre (Joueur j){
-        this.aJoueur = true;
+        this.joueur = j;
     }
 
 

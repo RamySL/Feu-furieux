@@ -60,6 +60,10 @@ public class Terrain {
         return this.largeur;
     }
 
+    public Case[][] getCarte (){
+        return this.carte;
+    }
+
     public ArrayList<CaseTraversable> getVoisinesTraversables(int lig, int col) {
         /* À compléter */
     }
