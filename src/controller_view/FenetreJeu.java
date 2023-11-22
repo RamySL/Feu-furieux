@@ -69,8 +69,6 @@ public class FenetreJeu extends JPanel {
 
     public void paintHalls (Graphics g, Hall hall){
 
-        int chaleur = hall.getChaleur();
-
         g.setColor(new Color(255,0,0,hall.rougeIntensite()));
         g.fillRect(hall.getColone() * this.tailleCase, hall.getLigne() * this.tailleCase,this.tailleCase,this.tailleCase );
 
