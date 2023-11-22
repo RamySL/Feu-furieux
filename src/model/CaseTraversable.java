@@ -1,5 +1,8 @@
 package model;
 
+import java.awt.*;
+import java.util.ArrayList;
+
 public abstract class CaseTraversable extends Case {
     protected int chaleur;
 
@@ -20,5 +23,14 @@ public abstract class CaseTraversable extends Case {
         if (this.chaleur > 0){
             this.chaleur ++;
         }
+    }
+
+    public int getChaleur(){
+        return this.chaleur;
+    }
+
+    public int rougeIntensite (){
+        return 25 * this.chaleur;
+
     }
 }

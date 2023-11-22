@@ -44,4 +44,6 @@ public class Joueur {
     public int getId() {
         return id;
     }
+
+    public Case getCase (){return this.c;}
 }

@@ -68,9 +68,18 @@ public class FenetreJeu extends JPanel {
     }
 
     public void paintHalls (Graphics g, Hall hall){
-        // on a pas traité encore les chaleurs
-        g.setColor(new Color(255,255,255));
+
+        int chaleur = hall.getChaleur();
+
+        g.setColor(new Color(255,0,0,hall.rougeIntensite()));
         g.fillRect(hall.getColone() * this.tailleCase, hall.getLigne() * this.tailleCase,this.tailleCase,this.tailleCase );
+
+        if (hall.possedeCle()){
+            //g.setColor(Color.LIGHT_GRAY);
+            g.setColor(new Color(150,150,150));
+            g.fillRect(hall.getColone() * this.tailleCase , hall.getLigne() * this.tailleCase ,(int) (this.tailleCase * 0.5),(int) (this.tailleCase * 0.5));
+        }
+
     }
 
     public void paintSortie (Graphics g, Sortie sortie){
@@ -107,6 +116,7 @@ public class FenetreJeu extends JPanel {
     }
 
     public static void main(String[] args) {
+        FenetreJeu f = new FenetreJeu(new Terrain("src/model/manoir.txt"));
 
     }
 }
