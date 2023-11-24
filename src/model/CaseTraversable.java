@@ -29,6 +29,16 @@ public abstract class CaseTraversable extends Case {
         return this.chaleur;
     }
 
+
+    public void entre (Joueur j){
+        this.joueur = j;
+    }
+
+    public Joueur getJoueur (){
+        // retourne le joueur si il yen a sinon retourne null
+        return this.joueur;
+    }
+
     public int rougeIntensite (){
         return 25 * this.chaleur;
 
