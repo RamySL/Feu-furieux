@@ -4,8 +4,10 @@ import model.*;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
-public class FenetreJeu extends JPanel {
+public class FenetreJeu extends JPanel implements KeyListener {
     private Terrain terrain;
     private int tailleCase = 36;
     private int hauteur, largeur;
@@ -21,6 +23,9 @@ public class FenetreJeu extends JPanel {
 
         JFrame frame = new JFrame("model.Furfeux");
         this.frame = frame;
+
+        frame.addKeyListener(this);
+
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.getContentPane().add(this);
         frame.pack();
@@ -39,24 +44,11 @@ public class FenetreJeu extends JPanel {
             for (Case c : ligne) {
                 c.paint(g);
                 if (c.possedeJoueur()){
-                    this.paintJoueur(g,c.getLigne(), c.getColone());
+                    c.getJoueur().paint(g);
                 }
-
-
             }
         }
     }
-
-    public void paintJoueur (Graphics g,int l, int c){
-        // pour ne pas recopier encore une fois la methode getJoueur dans Porte
-        // paintJoueur ne prends pas d'instance de Joueur
-
-        g.setColor(new Color(190,100,50));
-        g.fillOval(c * this.tailleCase, l * this.tailleCase,this.tailleCase,this.tailleCase);
-
-    }
-
-
 
     public void ecranFinal(int n) {
         /* l'écran quand la partie s'est terminé */
@@ -68,6 +60,36 @@ public class FenetreJeu extends JPanel {
         frame.getContentPane().add(label);
         frame.repaint();
     }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+
+        //System.out.println("Code : "  + e.getKeyLocation());
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+//        Joueur j = this.terrain.getJoueur();
+//        Case cc = j.getCase();
+//
+//        if (e.getKeyCode() == 38){
+//            Case cible = this.terrain.getCarte()[cc.getLigne() - 1][cc.getColone()];
+//            j.bouge(cible);
+//        }else if (e.getKeyCode() == 39){
+//            Case cible = this.terrain.getCarte()[cc.getLigne()][cc.getColone() + 1];
+//            j.bouge(cible);
+//        }else if (e.getKeyCode() == 40){
+//            Case cible = this.terrain.getCarte()[cc.getLigne() + 1][cc.getColone()];
+//            j.bouge(cible);
+//        }else if (e.getKeyCode() == 37){
+//            Case cible = this.terrain.getCarte()[cc.getLigne()][cc.getColone() - 1];
+//            j.bouge(cible);}
+//
+//        repaint();
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {}
 
     public static void main(String[] args) {
         FenetreJeu f = new FenetreJeu(new Terrain("src/model/manoir.txt"));

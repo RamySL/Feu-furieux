@@ -1,5 +1,7 @@
 package model;
 
+import java.awt.*;
+
 public class Joueur {
     private static int id_courant = 0;
     private CaseTraversable c;
@@ -29,9 +31,17 @@ public class Joueur {
         return this.resistance;
     }
 
-    public void bouge(Case cible) {
-        /* À compléter */
-    }
+//    public void bouge(Case cible) {
+//        /* À compléter */
+//        if (cible.estTraversable()){
+//            if (cible instanceof CaseTraversable){
+//                ((CaseTraversable) cible).entre(this);
+//            }else {
+//                ((Porte) cible).entre(this);
+//            }
+//        }
+//        this.c.entre(null);
+//    }
 
     public String getNom(){
         return this.nom;
@@ -46,4 +56,10 @@ public class Joueur {
     }
 
     public Case getCase (){return this.c;}
+
+    public void paint (Graphics g){
+        int tailleCase = this.c.getTailleCase();
+        g.setColor(new Color(190,100,50));
+        g.fillOval(this.c.getColone() * tailleCase, this.c.getLigne() * tailleCase,tailleCase,tailleCase);
+    }
 }

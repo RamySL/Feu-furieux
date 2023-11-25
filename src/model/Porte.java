@@ -2,6 +2,8 @@ package model;
 
 import java.awt.*;
 
+// POrte doit etendre CaseLibre
+
 public class Porte extends Case{
     private boolean ouverte;
 

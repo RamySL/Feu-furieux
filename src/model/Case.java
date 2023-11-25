@@ -18,6 +18,9 @@ public abstract class Case {
         public int getColone (){return this.col;}
 
         public abstract boolean possedeJoueur ();
+        public Joueur getJoueur(){return this.joueur;}
+
+        public int getTailleCase(){return this.tailleCase;}
 
         public abstract void paint(Graphics g);
 
