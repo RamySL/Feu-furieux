@@ -6,6 +6,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.ArrayList;
 
 public class FenetreJeu extends JPanel implements KeyListener {
     private Terrain terrain;
@@ -19,7 +20,7 @@ public class FenetreJeu extends JPanel implements KeyListener {
         this.terrain = t;
 
         setBackground(Color.LIGHT_GRAY);
-        setPreferredSize(new Dimension(this.largeur * tailleCase, this.hauteur * tailleCase));
+        setPreferredSize(new Dimension(9 * tailleCase, 9 * tailleCase));
 
         JFrame frame = new JFrame("model.Furfeux");
         this.frame = frame;
@@ -38,17 +39,17 @@ public class FenetreJeu extends JPanel implements KeyListener {
     }
 
     public void paintAll (Graphics g) {
-        // La méthode va desssiner tout les element du terrain
-        Case[][] carte = this.terrain.getCarte();
-        for (Case[] ligne : carte) {
-            for (Case c : ligne) {
-                c.paint(g);
-                if (c.possedeJoueur()){
-                    c.getJoueur().paint(g);
-                }
+        // La méthode va desssiner le champs du joueur
+        //
+        ArrayList<Case> vision = this.terrain.getVisionJoueur();
+        for (Case c : vision){
+            c.paint(g);
+            if (c.possedeJoueur()) {
+                c.getJoueur().paint(g);
             }
         }
     }
+
 
     public void ecranFinal(int n) {
         /* l'écran quand la partie s'est terminé */
@@ -69,23 +70,23 @@ public class FenetreJeu extends JPanel implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
-//        Joueur j = this.terrain.getJoueur();
-//        Case cc = j.getCase();
-//
-//        if (e.getKeyCode() == 38){
-//            Case cible = this.terrain.getCarte()[cc.getLigne() - 1][cc.getColone()];
-//            j.bouge(cible);
-//        }else if (e.getKeyCode() == 39){
-//            Case cible = this.terrain.getCarte()[cc.getLigne()][cc.getColone() + 1];
-//            j.bouge(cible);
-//        }else if (e.getKeyCode() == 40){
-//            Case cible = this.terrain.getCarte()[cc.getLigne() + 1][cc.getColone()];
-//            j.bouge(cible);
-//        }else if (e.getKeyCode() == 37){
-//            Case cible = this.terrain.getCarte()[cc.getLigne()][cc.getColone() - 1];
-//            j.bouge(cible);}
-//
-//        repaint();
+        Joueur j = this.terrain.getJoueur();
+        Case cc = j.getCase();
+
+        if (e.getKeyCode() == 38){
+            Case cible = this.terrain.getCarte()[cc.getLigne() - 1][cc.getColone()];
+            j.bouge(cible);
+        }else if (e.getKeyCode() == 39){
+            Case cible = this.terrain.getCarte()[cc.getLigne()][cc.getColone() + 1];
+            j.bouge(cible);
+        }else if (e.getKeyCode() == 40){
+            Case cible = this.terrain.getCarte()[cc.getLigne() + 1][cc.getColone()];
+            j.bouge(cible);
+        }else if (e.getKeyCode() == 37){
+            Case cible = this.terrain.getCarte()[cc.getLigne()][cc.getColone() - 1];
+            j.bouge(cible);}
+        System.out.println(this.terrain.getVisionJoueur().size());
+        repaint();
     }
 
     @Override

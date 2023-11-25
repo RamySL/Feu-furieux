@@ -31,17 +31,14 @@ public class Joueur {
         return this.resistance;
     }
 
-//    public void bouge(Case cible) {
-//        /* À compléter */
-//        if (cible.estTraversable()){
-//            if (cible instanceof CaseTraversable){
-//                ((CaseTraversable) cible).entre(this);
-//            }else {
-//                ((Porte) cible).entre(this);
-//            }
-//        }
-//        this.c.entre(null);
-//    }
+    public void bouge(Case cible) {
+        /* À compléter */
+        if (cible instanceof CaseTraversable ){
+            ((CaseTraversable) cible).entre(this);
+            this.c = ((CaseTraversable) cible);
+        }
+
+    }
 
     public String getNom(){
         return this.nom;
@@ -62,4 +59,6 @@ public class Joueur {
         g.setColor(new Color(190,100,50));
         g.fillOval(this.c.getColone() * tailleCase, this.c.getLigne() * tailleCase,tailleCase,tailleCase);
     }
+
+
 }
