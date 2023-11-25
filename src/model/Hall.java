@@ -29,9 +29,12 @@ public class Hall extends CaseTraversable {
     public boolean possedeCle(){
         return this.cle;
     }
-
+    public void supprimerCle(){
+        this.cle = false;
+    }
     public boolean estTraversable (){
-        return this.getJoueur() == null;
+        return true;
+        //return this.getJoueur() == null; le hall est toujours traversable, tu veux dire ici estLibre()
     }
 
 
@@ -44,24 +47,17 @@ public class Hall extends CaseTraversable {
         return (! estTraversable());
     }
 
-    public void paint(Graphics g){
+    public void paint(Graphics g, int translationX, int translationY){
+            if (this.rougeIntensite() == 0)
+                g.setColor(new Color(255, 255, 255));
+             else
+                g.setColor(new Color(255, 0, 0, this.rougeIntensite()));
 
-        if (this.rougeIntensite() == 0){
-            g.setColor(new Color(255,255,255));
-            g.fillRect(this.getColone() * this.tailleCase, this.getLigne() * this.tailleCase,this.tailleCase,this.tailleCase );
-        }else{
-            g.setColor(new Color(255,0,0,this.rougeIntensite()));
-            g.fillRect(this.getColone() * this.tailleCase, this.getLigne() * this.tailleCase,this.tailleCase,this.tailleCase );
+            super.paint(g, translationX, translationY);
+            if (this.possedeCle()) {
+                //g.setColor(Color.LIGHT_GRAY);
+                g.setColor(new Color(150, 150, 150));
+                g.fillRect((this.getColone() - translationX) * this.tailleCase, (this.getLigne() - translationY) * this.tailleCase, Case.tailleCle, Case.tailleCle);
+            }
         }
-
-        if (this.possedeCle()){
-            //g.setColor(Color.LIGHT_GRAY);
-            g.setColor(new Color(150,150,150));
-            g.fillRect(this.getColone() * this.tailleCase , this.getLigne() * this.tailleCase ,(int) (this.tailleCase * 0.5),(int) (this.tailleCase * 0.5));
-        }
-    }
-
-
-
-
 }

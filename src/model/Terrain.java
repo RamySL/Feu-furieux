@@ -64,6 +64,7 @@ public class Terrain {
         return this.carte;
     }
 
+
 //    public ArrayList<CaseTraversable> getVoisinesTraversables(int lig, int col) {
 //        /* À compléter */
 //    }

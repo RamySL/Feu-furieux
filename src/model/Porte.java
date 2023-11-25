@@ -4,23 +4,31 @@ import java.awt.*;
 
 // POrte doit etendre CaseLibre
 
-public class Porte extends Case{
+public class Porte extends CaseTraversable{
     private boolean ouverte;
 
     public Porte(int l, int c, boolean ouverte){
-        super(l, c);
+        super(l, c, 0);//initialement les chaleurs sont à 0
         this.ouverte = ouverte;
     }
 
     public boolean estTraversable(){
-        return ouverte;
+        return true;
     }
 
     public void entre (Joueur j){
         this.joueur = j;
     }
 
-    public boolean possedeJoueur (){
+    public void ouvrire(){
+        this.ouverte = true;
+    }
+
+    public boolean estOuverte(){
+        return ouverte;
+    }
+
+ /*   public boolean possedeJoueur (){
          if (! ouverte){
              return false;
          }else {
@@ -28,16 +36,17 @@ public class Porte extends Case{
          }
     }
 
-    public void paint (Graphics g){
+  */
 
-        if (this.estTraversable()){
-            // porte ouverte
-            g.setColor(new Color(255,255,255));
-            g.fillRect(this.getColone() * this.tailleCase, this.getLigne() * this.tailleCase,this.tailleCase,this.tailleCase );
-        }else{
-            g.setColor(new Color(0,255,0));
-            g.fillRect(this.getColone() * this.tailleCase, this.getLigne() * this.tailleCase,this.tailleCase,this.tailleCase );
-        }
+    public void paint (Graphics g, int translationX, int translationY){
 
+
+            if (ouverte)
+                // porte ouverte
+                g.setColor(new Color(255, 255, 255));
+            else
+                g.setColor(new Color(0, 255, 0));
+
+            super.paint(g, translationX, translationY);
     }
 }

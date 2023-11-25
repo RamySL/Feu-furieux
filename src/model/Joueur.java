@@ -57,9 +57,25 @@ public class Joueur {
 
     public Case getCase (){return this.c;}
 
-    public void paint (Graphics g){
+    public void paint (Graphics g, int translationX, int translationY){
         int tailleCase = this.c.getTailleCase();
         g.setColor(new Color(190,100,50));
-        g.fillOval(this.c.getColone() * tailleCase, this.c.getLigne() * tailleCase,tailleCase,tailleCase);
+        g.fillOval((this.c.getColone() - translationX) * tailleCase, (this.c.getLigne() - translationY) * tailleCase,tailleCase,tailleCase);
+    }
+
+    public void deplacer(CaseTraversable c) {
+        if(c == null)
+            return;
+        if(c instanceof Porte && cles >= 0){
+            ((Porte) c).ouvrire();
+            cles--;
+            c.entre(this);
+            this.c = c;
+        } else if (c instanceof  Hall && ((Hall) c).possedeCle()){
+            cles++;
+            ((Hall) c).supprimerCle();
+            c.entre(this);
+            this.c = c;
+        }
     }
 }

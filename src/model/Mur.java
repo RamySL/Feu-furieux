@@ -12,11 +12,11 @@ public class Mur extends CaseNonTraversable{
     }
     public boolean possedeJoueur(){return false;}
 
-    public void paint(Graphics g){
+    public void paint(Graphics g, int translationX, int translationY){
 
         g.setColor(new Color(0,0,0));
-        g.fillRect(this.getColone() * this.tailleCase , this.getLigne() * this.tailleCase,this.tailleCase,this.tailleCase );
-    }
+        super.paint(g, translationX, translationY);
+     }
 
 
 
