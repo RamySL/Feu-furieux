@@ -71,9 +71,11 @@ public class Joueur {
             cles--;
             c.entre(this);
             this.c = c;
-        } else if (c instanceof  Hall && ((Hall) c).possedeCle()){
-            cles++;
-            ((Hall) c).supprimerCle();
+        } else if (c instanceof  Hall){
+            if(((Hall) c).possedeCle()){
+                cles++;
+                ((Hall) c).supprimerCle();
+            }
             c.entre(this);
             this.c = c;
         }

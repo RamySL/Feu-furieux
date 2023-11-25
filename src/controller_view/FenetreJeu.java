@@ -47,10 +47,9 @@ public class FenetreJeu extends JPanel implements KeyListener {
 
         for(int i = 0; i < terrain.getHauteur(); i++){
             for(int j = 0; j < terrain.getLargeur(); j++){
-                if((i - centrey) * (i - centrey) + (j - centrex) * (j - centrex) <= this.rayon2) {
-
+                if((i - centrey) * (i - centrey) + (j - centrex) * (j - centrex) <= this.rayon2)
                     terrain.getCarte()[i][j].paint(g, centrex - 4, centrey - 4);
-                }
+
             }
         }
         terrain.getJoueur().paint(g, centrex - 4, centrey - 4);
@@ -78,11 +77,8 @@ public class FenetreJeu extends JPanel implements KeyListener {
     public void keyPressed(KeyEvent e){
         Joueur j = this.terrain.getJoueur();
         Case cc = j.getCase(), cible = null;
-
         if (e.getKeyCode() == 38 && cc.getLigne() - 1 >= 0)
             cible = this.terrain.getCarte()[cc.getLigne() - 1][cc.getColone()];
-
-
         else if (e.getKeyCode() == 39 && cc.getColone() + 1 <= this.largeur)
             cible = this.terrain.getCarte()[cc.getLigne()][cc.getColone() + 1];
 
