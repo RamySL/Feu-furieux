@@ -64,28 +64,8 @@ public class Terrain {
         return this.carte;
     }
 
-    public ArrayList<Case> getVisionJoueur (){
-        Case caseJoueur = this.joueur.getCase();
-        ArrayList<Case> res = new ArrayList<>();
 
-        for (int l = 0; l < this.hauteur; l++){
-            Case[] ligne = this.carte[l];
-            for (int c = 0; c < this.largeur; c++){
-                int x = caseJoueur.getColone();
-                int y = caseJoueur.getLigne();
-                int xPrime = c;
-                int yPrime = l;
-
-                if ((x - xPrime) * (x - xPrime) + (y-yPrime)*(y-yPrime) <= 10){
-                    res.add(ligne[c]);
-                }
-            }
-        }
-
-        return res;
-    }
-
-//  public ArrayList<CaseTraversable> getVoisinesTraversables(int lig, int col) {
+//    public ArrayList<CaseTraversable> getVoisinesTraversables(int lig, int col) {
 //        /* À compléter */
 //    }
 }

@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public abstract class CaseTraversable extends Case {
     protected int chaleur;
-
+    protected Joueur joueur;
     public CaseTraversable (int l, int c, int chaleur){
         super(l,c);
         this.chaleur = chaleur;
@@ -36,6 +36,9 @@ public abstract class CaseTraversable extends Case {
 
     public int rougeIntensite (){
         return 25 * this.chaleur;
+    }
 
+    public void paint(Graphics g, int translationX, int translationY){
+        super.paint(g, translationX, translationY);
     }
 }
