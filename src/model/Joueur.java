@@ -66,9 +66,11 @@ public class Joueur {
     public void deplacer(CaseTraversable c) {
         if(c == null)
             return;
-        if(c instanceof Porte && cles >= 0){
-            ((Porte) c).ouvrire();
-            cles--;
+        if(c instanceof Porte && cles > 0){
+            if(!((Porte) c).estOuverte()){
+                ((Porte) c).ouvrire();
+                cles--;
+            }
             c.entre(this);
             this.c = c;
         } else if (c instanceof  Hall){
@@ -79,5 +81,6 @@ public class Joueur {
             c.entre(this);
             this.c = c;
         }
+        System.out.println(this.cles + " ");
     }
 }
