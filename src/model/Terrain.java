@@ -65,7 +65,26 @@ public class Terrain {
     }
 
 
-//    public ArrayList<CaseTraversable> getVoisinesTraversables(int lig, int col) {
-//        /* À compléter */
-//    }
+    public ArrayList<CaseTraversable> getVoisinesTraversables(int lig, int col) {
+        /* À compléter */
+        //un voisin c'est une case qui son num de ligne et de cologne ne depassent pas 1
+        // en distance avec la case courante
+
+        // dans ce code la case courante est inclus dans la liste (card = 9)
+        ArrayList<CaseTraversable> res = new ArrayList<>();
+
+        for (int l = 0; l< this.hauteur; l++){
+            Case [] ligne = this.carte[l];
+            for (int c = 0; c< this.largeur;c++){
+                if ( (lig - l == 0 || lig - l == 1 || lig - l == -1) && ((col - c == 0 || col - c == 1 || col - c == -1))){
+                    // c'est une vosine
+                    Case cc = ligne[c];
+                    if (cc instanceof CaseTraversable){
+                        res.add((CaseTraversable) cc);
+                    }
+                }
+            }
+        }
+        return res;
+    }
 }

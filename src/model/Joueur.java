@@ -63,18 +63,36 @@ public class Joueur {
     public void deplacer(CaseTraversable c) {
         if(c == null)
             return;
-        if(c instanceof Porte && cles >= 0){
+
+        if (c instanceof Sortie){
+            c.entre(this);
+            this.c = c;
+        }
+
+        if(c instanceof Porte && !((Porte) c).estOuverte() && cles >= 0 ){
             ((Porte) c).ouvrire();
             cles--;
             c.entre(this);
             this.c = c;
-        } else if (c instanceof  Hall){
+        }else if (c instanceof Porte && ((Porte) c).estOuverte()){
+            c.entre(this);
+            this.c = c;
+        }
+
+        else if (c instanceof  Hall){
             if(((Hall) c).possedeCle()){
                 cles++;
                 ((Hall) c).supprimerCle();
             }
             c.entre(this);
             this.c = c;
+        }
+    }
+
+    public void subisDegat (int degat){
+        this.resistance -= degat;
+        if (this.resistance < 0){
+            this.resistance = 0;
         }
     }
 

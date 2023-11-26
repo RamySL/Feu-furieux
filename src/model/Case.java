@@ -7,8 +7,6 @@ public abstract class Case {
         static final int tailleCle = 20;
         protected final int lig, col;
 
-        //protected Joueur joueur = null;
-        //case ne peut pas contenir joueur
         protected int tailleCase = 36;
         public Case(int l, int c) {
             this.lig = l;
@@ -18,10 +16,6 @@ public abstract class Case {
 
         public int getLigne (){return this.lig;}
         public int getColone (){return this.col;}
-
-        //public abstract boolean possedeJoueur ();
-        //pas
-        //public Joueur getJoueur(){return this.joueur;}
 
         public int getTailleCase(){return this.tailleCase;}
 
