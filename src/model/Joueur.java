@@ -1,29 +1,29 @@
 package model;
 
 import java.awt.*;
+import java.io.Serializable;
 
-public class Joueur {
+public class Joueur implements Serializable {
     private static int id_courant = 0;
     private CaseTraversable c;
     private int resistance;
     private int cles;
-    private String nom, pswd;
+    private String nom;
 
-    private int id;
+    private int id, score, niveau;
     public Joueur(CaseTraversable c, int r, int k) {
         this.c = c;
         this.resistance = r;
         this.cles = k;
+        this.id = id_courant;
+        id_courant++;
     }
 
-    public Joueur(CaseTraversable c, int r, int k, String nom, String pswd){
-        this.c = c;
-        this.resistance = r;
-        this.cles = k;
+    public Joueur(CaseTraversable c, int r, int k, String nom){
+        this(c, r, k);
         this.nom = nom;
-        this.pswd = pswd;
-        this.id = Joueur.id_courant;
-        Joueur.id_courant++;
+        this.score = 0;
+        this.niveau = 1;
     }
 
 
@@ -47,10 +47,6 @@ public class Joueur {
         return this.nom;
     }
 
-    public String getPswd() {
-        return pswd;
-    }
-
     public int getId() {
         return id;
     }
@@ -66,13 +62,17 @@ public class Joueur {
     public void deplacer(CaseTraversable c) {
         if(c == null)
             return;
-        if(c instanceof Porte && cles > 0){
-            if(!((Porte) c).estOuverte()){
+        if(c instanceof Porte){
+            if(!((Porte) c).estOuverte() && cles > 0){
                 ((Porte) c).ouvrire();
                 cles--;
+                c.entre(this);
+                this.c = c;
+            } else if(((Porte) c).estOuverte()){
+                c.entre(this);
+                this.c = c;
             }
-            c.entre(this);
-            this.c = c;
+
         } else if (c instanceof  Hall){
             if(((Hall) c).possedeCle()){
                 cles++;
@@ -81,6 +81,7 @@ public class Joueur {
             c.entre(this);
             this.c = c;
         }
-        System.out.println(this.cles + " ");
     }
+
+
 }

@@ -94,7 +94,7 @@ public class FenetreJeu extends JPanel implements KeyListener {
 
         if(cible != null && cible.estTraversable()){
             j.deplacer((CaseTraversable) cible);
-            playSound("../assets/marche.wav");
+            //playSound("../assets/marche.wav");
         }
         repaint();
 
