@@ -31,17 +31,14 @@ public class Joueur implements Serializable {
         return this.resistance;
     }
 
-//    public void bouge(Case cible) {
-//        /* À compléter */
-//        if (cible.estTraversable()){
-//            if (cible instanceof CaseTraversable){
-//                ((CaseTraversable) cible).entre(this);
-//            }else {
-//                ((Porte) cible).entre(this);
-//            }
-//        }
-//        this.c.entre(null);
-//    }
+    public void bouge(Case cible) {
+        /* À compléter */
+        if (cible instanceof CaseTraversable ){
+            ((CaseTraversable) cible).entre(this);
+            this.c = ((CaseTraversable) cible);
+        }
+
+    }
 
     public String getNom(){
         return this.nom;
@@ -83,5 +80,10 @@ public class Joueur implements Serializable {
         }
     }
 
-
+    public void subisDegat (int degat){
+        this.resistance -= degat;
+        if (this.resistance < 0){
+            this.resistance = 0;
+        }
+    }
 }

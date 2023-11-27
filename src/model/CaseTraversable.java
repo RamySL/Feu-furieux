@@ -21,7 +21,7 @@ public abstract class CaseTraversable extends Case {
     public void decrementeChaleur (){
         // 0 c'est le minimum
         if (this.chaleur > 0){
-            this.chaleur ++;
+            this.chaleur --;
         }
     }
 
