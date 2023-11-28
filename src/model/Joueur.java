@@ -48,6 +48,8 @@ public class Joueur implements Serializable {
         return id;
     }
 
+    public int getCles(){return this.cles;}
+
     public Case getCase (){return this.c;}
 
     public void paint (Graphics g, int translationX, int translationY){
@@ -59,6 +61,12 @@ public class Joueur implements Serializable {
     public void deplacer(CaseTraversable c) {
         if(c == null)
             return;
+
+        if (c instanceof Sortie){
+            c.entre(this);
+            this.c = c;
+        }
+
         if(c instanceof Porte){
             if(!((Porte) c).estOuverte() && cles > 0){
                 ((Porte) c).ouvrire();

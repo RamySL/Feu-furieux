@@ -17,6 +17,7 @@ public class Sortie extends CaseTraversable {
         return true;
     }
 
+
     public boolean possedeJoueur (){
         return !(estTraversable ());
     }
