@@ -21,7 +21,7 @@ public class Furfeux {
 
         // ici il faut infliger les degat au joueur quand il est sur
         // une case avec chaleur parceque c'es liée Timer
-        CaseTraversable caseJoueur =(CaseTraversable) this.joueur.getCase();
+        CaseTraversable caseJoueur = (CaseTraversable) this.joueur.getCase();
         this.joueur.subisDegat(caseJoueur.getChaleur());
 
         // ici il faut prpagé les flemmes aussi

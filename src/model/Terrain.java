@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Terrain {
+    public static Case caseParDefaut;
     private int hauteur, largeur;
     private Case[][] carte;
     private Joueur joueur;
@@ -48,6 +49,7 @@ public class Terrain {
             sc.close();
         }
         catch (IOException e) { e.printStackTrace(); System.exit(1); }
+        caseParDefaut = carte[12][24];//case par default pour creer des joueurs, il sera executé une seule fois car c'est pas logique d'avoire plusieurs terrains dans ce cas
     }
 
     public Joueur getJoueur() { return this.joueur; }
