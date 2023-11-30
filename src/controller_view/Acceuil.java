@@ -1,5 +1,6 @@
 package controller_view;
 
+import model.DataBase;
 import model.Joueur;
 
 import javax.imageio.ImageIO;
@@ -10,7 +11,7 @@ import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
 
-public class Acceuil extends JPanel implements MouseListener, KeyListener, FocusListener {
+public class Acceuil extends JPanel implements MouseListener, KeyListener, FocusListener, WindowListener {
     private JTextField pseudo;
     private JButton start;
     private Image image;
@@ -18,9 +19,13 @@ public class Acceuil extends JPanel implements MouseListener, KeyListener, Focus
     private BufferedImage myPicture;
     private JLabel picLabel;
     private String pseudoName;
-    JFrame frame;
+    private JFrame frame;
+    private String terrain;
+    private Menu menu;
 
-    public Acceuil() {
+    public Acceuil(JFrame frame, String terrain) {
+        this.terrain = terrain;
+        this.frame = frame;
         pseudo = new JTextField();
         pseudo.setText("Pseudo");
         pseudo.setPreferredSize(new Dimension(270, 60));
@@ -42,7 +47,6 @@ public class Acceuil extends JPanel implements MouseListener, KeyListener, Focus
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
         picLabel.setLayout(new BorderLayout());
         picLabel.add(container, BorderLayout.EAST);
         //container.setBackground(new Color(222, 232, 133));
@@ -50,12 +54,8 @@ public class Acceuil extends JPanel implements MouseListener, KeyListener, Focus
         //this.add(superPanel);
         start.addMouseListener(this);
         pseudo.addFocusListener(this);
-        frame = new JFrame("model.Furfeux");
-        frame.setSize(new Dimension(1000, 600));
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.getContentPane().add(this);
-        frame.pack();
-        frame.setVisible(true);
+        this.frame.getContentPane().add(this);
+        this.frame.validate();
     }
 
     @Override
@@ -82,11 +82,7 @@ public class Acceuil extends JPanel implements MouseListener, KeyListener, Focus
     public void mouseClicked(MouseEvent e) {
         //Il faut rechercher le joueur dans le fichier;
         if(e.getSource() == start){
-            System.out.println("Nom joueur" + pseudoName);
-            Menu menu = new Menu(pseudoName);
-            this.frame.getContentPane().remove(this);
-            this.frame.getContentPane().add(menu);
-            this.frame.validate();
+           this.menu = new Menu(pseudoName, this.frame, this.terrain);
         }
     }
 
@@ -122,11 +118,60 @@ public class Acceuil extends JPanel implements MouseListener, KeyListener, Focus
         //pseudo.setBackground(new Color(255, 255, 255, 150));
         this.pseudoName = pseudo.getText();
     }
+
+    @Override
+    public void windowOpened(WindowEvent e) {
+        DataBase db = new DataBase();
+        int param = db.getNumberOfPlayers();
+        Joueur.id_courant = param;
+    }
+
+    @Override
+    public void windowClosing(WindowEvent e) {
+        DataBase db = new DataBase();
+        db.writeGameParams(Joueur.id_courant);
+        db.updatePlayer(menu.getJoueur());
+    }
+
+    @Override
+    public void windowClosed(WindowEvent e) {
+
+    }
+
+    @Override
+    public void windowIconified(WindowEvent e) {
+
+    }
+
+    @Override
+    public void windowDeiconified(WindowEvent e) {
+
+    }
+
+    @Override
+    public void windowActivated(WindowEvent e) {
+
+    }
+
+    @Override
+    public void windowDeactivated(WindowEvent e) {
+
+    }
 }
 
-class Main {
+class Main{
+
+
     public static void main(String args[]){
-        Acceuil ac = new Acceuil();
+        JFrame frame;
+        frame = new JFrame("model.Furfeux");
+
+        frame.setSize(new Dimension(1000, 600));
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        Acceuil ac = new Acceuil(frame, "src/model/manoir.txt");
+        frame.addWindowListener(ac);
+        frame.pack();
+        frame.setVisible(true);
     }
 }
 

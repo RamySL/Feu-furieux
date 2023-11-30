@@ -1,10 +1,12 @@
 package model;
 
+import com.sun.source.tree.CaseTree;
+
 import java.awt.*;
 import java.io.Serializable;
 
 public class Joueur implements Serializable, Comparable{
-    private static int id_courant = 0;
+    public static int id_courant;
     private CaseTraversable c;
     private int resistance;
     private int cles;
@@ -104,6 +106,19 @@ public class Joueur implements Serializable, Comparable{
         return this.nom.compareTo(str)==0;
     }
     public int compareTo(Object o){
-        return this.score - ((Joueur) o).score;
+        System.out.println("id" + this.id);
+        if(this.score == ((Joueur) o).score) return this.id - ((Joueur) o).id;
+        else return this.score - ((Joueur) o).score;
+
+    }
+
+    public void setCase(CaseTraversable cc){
+        this.c = cc;
+    }
+    public void setResistance(int r){
+        this.resistance = r;
+    }
+    public void setCles(int cles){
+        this.cles = cles;
     }
 }

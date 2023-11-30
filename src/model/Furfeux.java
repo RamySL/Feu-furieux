@@ -15,6 +15,11 @@ public class Furfeux {
         this.terrain = new Terrain(f);
         this.joueur = terrain.getJoueur();
     }
+    public Furfeux(String f, Joueur jr) {
+        this.terrain = new Terrain(f, jr);
+        this.joueur = jr;
+    }
+
 
     public void tour() {
         /* À compléter */
@@ -61,10 +66,14 @@ public class Furfeux {
         return (this.joueur.getResistance() == 0) || (this.joueur.getCase() instanceof Sortie);
     }
 
+    public Joueur getJoueur(){
+        return joueur;
+    }
+
     public static void main(String[] args) {
         int tempo = 100;
         Furfeux jeu = new Furfeux("src/model/manoir.txt");
-        FenetreJeu graphic = new FenetreJeu(jeu.terrain);
+        FenetreJeu graphic = new FenetreJeu(jeu.terrain, null);
         Timer timer = new Timer(tempo, e -> {
             jeu.tour();
             graphic.repaint();
@@ -74,5 +83,9 @@ public class Furfeux {
             }
         });
         timer.start();
+    }
+
+    public Terrain getTerrain(){
+        return this.terrain;
     }
 }

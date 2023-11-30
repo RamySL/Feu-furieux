@@ -2,23 +2,21 @@ package controller_view;
 
 import model.*;
 
-import javax.sound.sampled.UnsupportedAudioFileException;
+import javax.sound.sampled.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.File;
 import java.io.IOException;
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
+
 public class FenetreJeu extends JPanel implements KeyListener {
     private Terrain terrain;
     private final int tailleCase = 36;
     private final int hauteur, largeur, fenetreHaut, fenetreLarg, rayon2;
     private JFrame frame;
 
-    public FenetreJeu(Terrain t) {
+    public FenetreJeu(Terrain t, JFrame frame) {
         this.hauteur = t.getHauteur();
         this.largeur = t.getLargeur();
         fenetreHaut = 9;
@@ -29,15 +27,10 @@ public class FenetreJeu extends JPanel implements KeyListener {
         setBackground(Color.LIGHT_GRAY);
         setPreferredSize(new Dimension(this.fenetreLarg * tailleCase, this.fenetreHaut * tailleCase));
 
-        JFrame frame = new JFrame("model.Furfeux");
         this.frame = frame;
-
-        frame.addKeyListener(this);
-
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.getContentPane().add(this);
-        frame.pack();
-        frame.setVisible(true);
+        this.frame.addKeyListener(this);
+        this.frame.setFocusable(true);
+        this.frame.requestFocusInWindow();
     }
 
     public void paintComponent(Graphics g) {
@@ -94,7 +87,8 @@ public class FenetreJeu extends JPanel implements KeyListener {
 
         if(cible != null && cible.estTraversable()){
             j.deplacer((CaseTraversable) cible);
-            //playSound("../assets/marche.wav");
+            //(new DataBase()).playSound(DataBase.move_sound);
+            //playSound("C:\\Users\\Oualid_CHABANE\\IdeaProjects\\projet_feu_furieux\\src\\assets\\marche.wav");
         }
         repaint();
 
@@ -102,24 +96,4 @@ public class FenetreJeu extends JPanel implements KeyListener {
 
     @Override
     public void keyReleased(KeyEvent e) {}
-
-    public void playSound(String soundName) {
-        AudioInputStream audioInputStream = null;
-        try {
-            audioInputStream = AudioSystem.getAudioInputStream(new File(soundName).getAbsoluteFile());
-            Clip clip = AudioSystem.getClip();
-            clip.open(audioInputStream);
-            clip.start();
-        } catch (UnsupportedAudioFileException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } catch(Exception e){
-            throw new RuntimeException(e);
-        }
-    }
-    public static void main(String[] args) {
-        FenetreJeu f = new FenetreJeu(new Terrain("src/model/manoir.txt"));
-
-    }
 }
