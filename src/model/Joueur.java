@@ -80,19 +80,20 @@ public class Joueur implements Serializable, Comparable{
                 cles--;
                 c.entre(this);
                 this.c = c;
+                return;
             } else if(((Porte) c).estOuverte()){
                 c.entre(this);
                 this.c = c;
+                return;
             }
 
-        } else if (c instanceof  Hall){
-            if(((Hall) c).possedeCle()){
+        } else if (c instanceof  Hall && ((Hall) c).possedeCle()){
                 cles++;
                 ((Hall) c).supprimerCle();
-            }
-            c.entre(this);
-            this.c = c;
         }
+        c.entre(this);
+        this.c = c;
+
     }
 
     public void subisDegat (int degat){
@@ -106,12 +107,10 @@ public class Joueur implements Serializable, Comparable{
         return this.nom.compareTo(str)==0;
     }
     public int compareTo(Object o){
-        System.out.println("id" + this.id);
         if(this.score == ((Joueur) o).score) return this.id - ((Joueur) o).id;
         else return this.score - ((Joueur) o).score;
 
     }
-
     public void setCase(CaseTraversable cc){
         this.c = cc;
     }
@@ -120,5 +119,12 @@ public class Joueur implements Serializable, Comparable{
     }
     public void setCles(int cles){
         this.cles = cles;
+    }
+    public void setScore(int sc){
+        this.score += sc;
+        if(this.score >= (this.niveau + 1) * 1000){
+            this.niveau += this.score / (this.niveau + 1) * 1000;
+            this.score -= (this.niveau + 1) * 1000;
+        }
     }
 }

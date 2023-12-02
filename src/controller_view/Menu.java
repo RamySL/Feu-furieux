@@ -64,7 +64,7 @@ public class Menu extends JSplitPane implements MouseListener{
     }
 
     public void update(){
-        listPlayer.update();
+        listPlayer.update(dataPane.getJoueur());
     }
 }
 
@@ -120,7 +120,7 @@ class DataPane extends JPanel {
          init();
      }
 
-     private void init() {
+     public void init() {
          String[] columnsName = new String[]{"Classement", "Nom", "Niveau", "Score"};
          Object[][] data = new Object[listeJoueurs.size()][4];
          int i = 0;
@@ -129,17 +129,21 @@ class DataPane extends JPanel {
              data[i][1] = jr.getNom();
              data[i][2] = jr.getNiveau();
              data[i][3] = jr.getScore();
+             System.out.println("Score angaru :" + jr.getScore() + "ref: " + jr);
              i++;
          }
          tableJoueurs = new JTable(data, columnsName);
          setViewportView(tableJoueurs);
      }
 
-     public void update(){
-         TreeSet<Joueur> temp= new TreeSet<>();
-         temp.addAll(listeJoueurs);
-         listeJoueurs = temp;
+     public void update(Joueur j){
+         for(Joueur jr: this.listeJoueurs){
+             if(jr.getId() == j.getId()){
+                 this.listeJoueurs.remove(jr);
+                 this.listeJoueurs.add(j);
+                 break;
+             }
+         }
          init();
-         //Pour changer l'ordre des joueurs modifiés
      }
  }

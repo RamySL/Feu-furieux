@@ -6,11 +6,14 @@ import model.Joueur;
 import model.Terrain;
 
 import javax.swing.*;
+import javax.xml.crypto.Data;
 import java.awt.*;
+import java.awt.event.ContainerEvent;
+import java.awt.event.ContainerListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-public class pageJeu extends JPanel implements MouseListener {
+public class pageJeu extends JPanel implements MouseListener, ContainerListener {
     FenetreJeu ff;
 
     JButton quit;
@@ -18,6 +21,9 @@ public class pageJeu extends JPanel implements MouseListener {
     JFrame frame;
     String tr;
     Furfeux feuFurieux;
+    Timer timer;
+
+    final int tempo = 100;
     public pageJeu(Menu menu, JFrame frame, String tr){
         this.menu = menu;
         this.tr = tr;
@@ -29,34 +35,27 @@ public class pageJeu extends JPanel implements MouseListener {
         quit.setForeground(new Color(0x463f3a));
         quit.setBackground(new Color(0xf72585));
         quit.setFocusPainted(false);
-        this.frame.getContentPane().removeAll();
         this.setPreferredSize(new Dimension(1000, 600));
-        this.frame.add(this);
         this.setLayout(new BorderLayout());
-        this.ff = new FenetreJeu(new Terrain(this.tr, menu.getJoueur()), this.frame);
-        this.add(ff, BorderLayout.CENTER);
-        this.ff.setAlignmentX(CENTER_ALIGNMENT);
-        this.add(quit, BorderLayout.WEST);
-        this.frame.validate();
-        launch();
-    }
-    public FenetreJeu getFenetre(){
-        return this.ff;
-    }
-
-    public void launch(){
-        int tempo = 100;
         this.feuFurieux = new Furfeux(this.tr, menu.getJoueur());
-        Timer timer = new Timer(tempo, e -> {
+        this.ff = new FenetreJeu(this.feuFurieux.getTerrain(), this.frame);
+
+        timer = new Timer(tempo, e -> {
             feuFurieux.tour();
             ff.repaint();
             if (feuFurieux.partieFinie()) {
-                ff.ecranFinal(Math.max(0, feuFurieux.getJoueur().getResistance()));
+                feuFurieux.getJoueur().setScore(feuFurieux.getJoueur().getResistance());
+                ff.ecranFinal(Math.max(0, feuFurieux.getJoueur().getScore()));
                 ((Timer)e.getSource()).stop();
+                System.out.println("Ref init: " + this.menu.getJoueur());
             }
-
         });
-        timer.start();
+        this.add(ff, BorderLayout.CENTER);
+        this.addContainerListener(this);
+        this.add(quit, BorderLayout.WEST);
+        this.frame.getContentPane().removeAll();
+        this.frame.add(this);
+        this.frame.validate();
     }
     @Override
     public void mouseClicked(MouseEvent e) {
@@ -84,5 +83,19 @@ public class pageJeu extends JPanel implements MouseListener {
     @Override
     public void mouseExited(MouseEvent e) {
 
+    }
+
+    @Override
+    public void componentAdded(ContainerEvent e) {
+        timer.start();
+        if(e.getSource() == this.ff){
+            //System.out.println("bbbbbbbbbbbbbbbbbbbbbb");
+            // timer.start();
+        }
+    }
+
+    @Override
+    public void componentRemoved(ContainerEvent e) {
+        //timer.stop();
     }
 }

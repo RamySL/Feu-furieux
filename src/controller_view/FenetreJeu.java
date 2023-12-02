@@ -28,6 +28,7 @@ public class FenetreJeu extends JPanel implements KeyListener {
         setPreferredSize(new Dimension(this.fenetreLarg * tailleCase, this.fenetreHaut * tailleCase));
 
         this.frame = frame;
+
         this.frame.addKeyListener(this);
         this.frame.setFocusable(true);
         this.frame.requestFocusInWindow();
@@ -54,13 +55,15 @@ public class FenetreJeu extends JPanel implements KeyListener {
 
     public void ecranFinal(int n) {
         /* l'écran quand la partie s'est terminé */
-        frame.remove(this);
+        //.remove(this);
+        Component parent = this.getParent();
+        ((JPanel) parent).remove(this);
         JLabel label = new JLabel("Score " + n);
         label.setFont(new Font("Verdana", 1, 20));
         label.setHorizontalAlignment(SwingConstants.CENTER);
         label.setSize(this.getSize());
-        frame.getContentPane().add(label);
-        frame.repaint();
+        ((JPanel) parent).add(label, BorderLayout.CENTER);
+        parent.repaint();
     }
 
     @Override

@@ -2,6 +2,7 @@ package model;
 
 import javax.sound.sampled.*;
 import java.io.*;
+import java.util.ArrayList;
 import java.util.TreeSet;
 
 public class DataBase {
@@ -50,7 +51,30 @@ public class DataBase {
         }
     }
     public void updatePlayer(Joueur jr){
+        ObjectInputStream in = null;
+        ObjectOutputStream out = null;
+        ArrayList<Object> dataBase = new ArrayList<>();
+        try {
+             in = new ObjectInputStream(new BufferedInputStream(new FileInputStream(this.filePath)));
+             while(in.available() > 0){
+                 Joueur jrRed = (Joueur)in.readObject();
+                 if(jrRed.compareTo(jr) == 0)
+                     dataBase.add(jr);
+                 else
+                     dataBase.add(jrRed);
+             }
+             if(in != null)
+                 in.close();
+             out = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(this.filePath)));
+             while(dataBase.size()>0){
+                out.writeObject(dataBase.remove(0));
+             }
+             if(out != null)
+                 out.close();
 
+        } catch (IOException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public void playSound(int type) {
