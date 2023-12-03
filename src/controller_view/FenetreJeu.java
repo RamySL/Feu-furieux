@@ -70,6 +70,7 @@ public class FenetreJeu extends JPanel implements KeyListener {
         infoCles.add(nbCles);
         infoJoueur.add(infoCles);
 
+
         // La bare de vie du joueur
         int resistance = joueur.getResistance();
         barVie = new JProgressBar(0,resistance);
@@ -88,6 +89,7 @@ public class FenetreJeu extends JPanel implements KeyListener {
 //        JButton bouttonPause = new JButton("P");
 //        bouttonPause.setBounds((int)(largeurMenu * 0.8), 0,(int)(largeurMenu * 0.2) , hauteurMenu);
 //        infoJoueur.add(bouttonPause);//, BorderLayout.EAST);
+
 
         frame.addKeyListener(this);
 

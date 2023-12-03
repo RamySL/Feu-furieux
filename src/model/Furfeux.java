@@ -19,16 +19,16 @@ public class Furfeux {
     public void tour() {
         /* À compléter */
 
-        // ici il faut infliger les degat au joueur quand il est sur
-        // une case avec chaleur parceque c'es liée Timer
+        // ici il faut infliger les dégâts au joueur quand il est sur
+        // une case avec chaleur parce que c'est lié au Timer
         CaseTraversable caseJoueur = (CaseTraversable) this.joueur.getCase();
         this.joueur.subisDegat(caseJoueur.getChaleur());
 
-        // ici il faut prpagé les flemmes aussi
+        // ici il faut propager les flammes aussi
 
-        // La somme de la case et de ses 8 vosines, on tire au hazard entre 0 et 199
+        // La somme de la case et de ses 8 voisines, on tire au hazard entre 0 et 199
         // si sum > random alors chaleur += 1
-        // sinon si random > 190 alors chaleur -= 1
+        // sinon si random > 190, alors chaleur -= 1
         // sinon rien ne change
 
         for (Case[] ligne : this.terrain.getCarte()) {

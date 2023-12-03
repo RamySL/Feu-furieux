@@ -1,7 +1,7 @@
 package model;
 import java.awt.*;
 abstract class CaseNonTraversable extends Case{
-    //Une classe qui peut servir à utilisations future de l'applicaiton
+    //Une classe qui peut servir à une utilisation future de l'application
 
     public CaseNonTraversable(int l, int c){
         super(l, c);

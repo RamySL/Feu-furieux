@@ -7,8 +7,6 @@ import java.awt.*;
 public class Hall extends CaseTraversable {
 
     private boolean cle;
-
-
     public Hall (int l, int c){
         this (l,c,0,false);
     }

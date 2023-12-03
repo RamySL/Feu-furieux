@@ -40,6 +40,10 @@ public class Joueur implements Serializable, Comparable{
 
     }
 
+    public int getCles(){
+        return this.cles;
+    }
+
     public String getNom(){
         return this.nom;
     }
