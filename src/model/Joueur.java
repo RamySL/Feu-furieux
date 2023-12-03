@@ -3,7 +3,7 @@ package model;
 import java.awt.*;
 import java.io.Serializable;
 
-public class Joueur implements Serializable {
+public class Joueur implements Serializable, Comparable{
     private static int id_courant = 0;
     private CaseTraversable c;
     private int resistance;
@@ -48,8 +48,19 @@ public class Joueur implements Serializable {
         return id;
     }
 
-    public int getCles(){return this.cles;}
+    public int getScore(){
+        return this.score;
+    }
+    public int getNiveau(){
+        return this.niveau;
+    }
 
+    public void incScore(int offset){
+        this.score+=offset;
+    }
+    public void incNiveau(){
+        this.niveau++;
+    }
     public Case getCase (){return this.c;}
 
     public void paint (Graphics g, int translationX, int translationY){
@@ -61,12 +72,6 @@ public class Joueur implements Serializable {
     public void deplacer(CaseTraversable c) {
         if(c == null)
             return;
-
-        if (c instanceof Sortie){
-            c.entre(this);
-            this.c = c;
-        }
-
         if(c instanceof Porte){
             if(!((Porte) c).estOuverte() && cles > 0){
                 ((Porte) c).ouvrire();
@@ -93,5 +98,12 @@ public class Joueur implements Serializable {
         if (this.resistance < 0){
             this.resistance = 0;
         }
+    }
+
+    public boolean compareName(String str){
+        return this.nom.compareTo(str)==0;
+    }
+    public int compareTo(Object o){
+        return this.score - ((Joueur) o).score;
     }
 }
