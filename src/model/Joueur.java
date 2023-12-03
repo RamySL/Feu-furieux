@@ -1,13 +1,15 @@
 package model;
 
+import com.sun.source.tree.CaseTree;
+
 import java.awt.*;
 import java.io.Serializable;
 
 public class Joueur implements Serializable, Comparable{
-    private static int id_courant = 0;
-    private CaseTraversable c;
+    public static int id_courant;
+    private transient CaseTraversable c;
     private int resistance;
-    private int cles;
+    private transient int cles;
     private String nom;
 
     private int id, score, niveau;
@@ -82,19 +84,20 @@ public class Joueur implements Serializable, Comparable{
                 cles--;
                 c.entre(this);
                 this.c = c;
+                return;
             } else if(((Porte) c).estOuverte()){
                 c.entre(this);
                 this.c = c;
+                return;
             }
 
-        } else if (c instanceof  Hall){
-            if(((Hall) c).possedeCle()){
+        } else if (c instanceof  Hall && ((Hall) c).possedeCle()){
                 cles++;
                 ((Hall) c).supprimerCle();
-            }
-            c.entre(this);
-            this.c = c;
         }
+        c.entre(this);
+        this.c = c;
+
     }
 
     public void subisDegat (int degat){
@@ -108,6 +111,27 @@ public class Joueur implements Serializable, Comparable{
         return this.nom.compareTo(str)==0;
     }
     public int compareTo(Object o){
-        return this.score - ((Joueur) o).score;
+        if ((this.niveau == ((Joueur) o).niveau))
+            if(this.score == ((Joueur) o).score) return this.id - ((Joueur) o).id;
+            else return - this.score + ((Joueur) o).score;//trier selon ordre décroissant
+        else return - this.niveau + ((Joueur) o).niveau;
+
+    }
+    public void setCase(CaseTraversable cc){
+        this.c = cc;
+    }
+    public void setResistance(int r){
+        this.resistance = r;
+    }
+    public void setCles(int cles){
+        this.cles = cles;
+    }
+    public void setScore(int sc){
+        //méthode qui gére l'incrémentation du niveau et score d'une manière logarithmique
+        this.score += sc;
+        if(this.score >= (this.niveau + 1) * 1000){
+            this.niveau += this.score / ((this.niveau + 1) * 1000);
+            this.score -= this.niveau * 1000;
+        }
     }
 }

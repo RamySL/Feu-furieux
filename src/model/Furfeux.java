@@ -2,7 +2,7 @@ package model;
 
 import controller_view.FenetreJeu;
 
-import javax.swing.Timer;
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -15,6 +15,11 @@ public class Furfeux {
         this.terrain = new Terrain(f);
         this.joueur = terrain.getJoueur();
     }
+    public Furfeux(String f, Joueur jr) {
+        this.terrain = new Terrain(f, jr);
+        this.joueur = jr;
+    }
+
 
     public void tour() {
         /* À compléter */
@@ -37,7 +42,6 @@ public class Furfeux {
                     int sumChaleurs = 0;
                     Random rnd = new Random();
                     int r = rnd.nextInt(200);
-
                     ArrayList<CaseTraversable> voisineChaleur = this.terrain.getVoisinesTraversables(cc.getLigne(), cc.getColone());
                     for (CaseTraversable v : voisineChaleur) {
                         sumChaleurs += v.getChaleur();
@@ -61,10 +65,16 @@ public class Furfeux {
         return (this.joueur.getResistance() == 0) || (this.joueur.getCase() instanceof Sortie);
     }
 
+    public Joueur getJoueur(){
+        return joueur;
+    }
+
     public static void main(String[] args) {
         int tempo = 100;
         Furfeux jeu = new Furfeux("src/model/manoir.txt");
-        FenetreJeu graphic = new FenetreJeu(jeu.terrain);
+        JFrame fr = new JFrame();
+
+        FenetreJeu graphic = new FenetreJeu(jeu.terrain,fr);
         Timer timer = new Timer(tempo, e -> {
             jeu.tour();
             graphic.actuVie();
@@ -76,5 +86,10 @@ public class Furfeux {
             }
         });
         timer.start();
+    }
+
+
+    public Terrain getTerrain(){
+        return this.terrain;
     }
 }
