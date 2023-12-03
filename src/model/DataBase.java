@@ -6,6 +6,9 @@ import java.util.ArrayList;
 import java.util.TreeSet;
 
 public class DataBase {
+    //class qui nous permet au view d'intéragir avec la base de données
+    //Joueur.bin la base de données de sjoueurs
+    //paraametresJeu, contient l'id du prochain joueur à ajouter à la base de données
     public static final int move_sound = 0;
     private final String paramsFile= "C:\\Users\\Oualid_CHABANE\\IdeaProjects\\projet_feu_furieux\\src\\files\\parametresJeu.bin", filePath = "C:\\Users\\Oualid_CHABANE\\IdeaProjects\\projet_feu_furieux\\src\\files\\joueurs.bin";
     public Joueur searchInFile(String name){
@@ -55,25 +58,43 @@ public class DataBase {
         ObjectOutputStream out = null;
         ArrayList<Object> dataBase = new ArrayList<>();
         try {
-             in = new ObjectInputStream(new BufferedInputStream(new FileInputStream(this.filePath)));
-             while(in.available() > 0){
-                 Joueur jrRed = (Joueur)in.readObject();
-                 if(jrRed.compareTo(jr) == 0)
-                     dataBase.add(jr);
-                 else
-                     dataBase.add(jrRed);
-             }
-             if(in != null)
-                 in.close();
+            in = new ObjectInputStream(new BufferedInputStream(new FileInputStream(this.filePath)));
+            while (true) {
+                Joueur jrRed = (Joueur) in.readObject();
+                if (jrRed.getId() ==  jr.getId())
+                    dataBase.add(jr);
+                else
+                    dataBase.add(jrRed);
+            }
+        }
+         catch(IOException | ClassNotFoundException e){
+             //EoF
+        } finally {
+            if(in != null) {
+                try {
+                    in.close();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }
+
+        try{
              out = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(this.filePath)));
              while(dataBase.size()>0){
                 out.writeObject(dataBase.remove(0));
              }
-             if(out != null)
-                 out.close();
 
-        } catch (IOException | ClassNotFoundException e) {
+        } catch (IOException e) {
             throw new RuntimeException(e);
+        } finally {
+            if(out != null) {
+                try {
+                    out.close();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
         }
     }
 

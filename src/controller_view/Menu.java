@@ -12,13 +12,15 @@ import java.io.*;
 import java.util.TreeSet;
 
 public class Menu extends JSplitPane implements MouseListener{
-    private String ramy = "Ramy SAIL", oualid = "Oualid CHABANE";
-    JFrame frame;
-    pageJeu pagejeu;
-    DataPane dataPane;
-    EnsembleJoueurs listPlayer;
-    String terrain;
+    //La class menu pour afficher tout les joueurs classées selon le niveau et le score
+    //Le niveau s'incrémente en incrémentant le score (le niveau n+1 demande plus de score que le niveau n, donc le niveau s'incrémente d'ine maniere logarithmique
+    JFrame frame;//le meme frame dans l'acceuil est dans menu, qui sera aussi dans les autres class d'affichage
+    pageJeu pagejeu;//la class qui se charge d'afficher le jeu avec les animations
+    DataPane dataPane;//le panel qui contient les informations du joueur actuel, il se trouve sur la droite.
+    EnsembleJoueurs listPlayer;//le tableau des joueurs dans base de données
+    String terrain;// le chemin vers le fichier qui contient le terrain
     public Menu(String name, JFrame frame, String terrain){
+        //initalisations...
         this.terrain = terrain;
         this.frame = frame;
         dataPane = new DataPane(name, this);
@@ -27,13 +29,14 @@ public class Menu extends JSplitPane implements MouseListener{
         this.setResizeWeight(0.0);
         this.setLeftComponent(dataPane);
         this.setRightComponent(listPlayer);
-        this.frame.getContentPane().removeAll();
+        this.frame.getContentPane().removeAll();//on supprime tous qui est dans le frame poue afficher le menu, on réutilise le meme frame dans tout le jeu
         this.setPreferredSize(new Dimension(1000, 600));
         this.frame.add(this);
-        this.frame.validate();
+        this.frame.validate();//pour actualiser(equivalent de repaint)
     }
     @Override
     public void mouseClicked(MouseEvent event) {
+        //en clicquant sur le bouton pour commencer, on crée un instance de la page d'affichage du jeu, c'est elle qui se charge de la mise à jour du contenu du frame
         this.pagejeu = new pageJeu(this, this.frame, this.terrain);
     }
 
@@ -64,21 +67,28 @@ public class Menu extends JSplitPane implements MouseListener{
     }
 
     public void update(){
-        listPlayer.update(dataPane.getJoueur());
+        //Pour actualiser les données des joueurs dans le menu, en cas d'affichage plusieurs fois dans la meme partie
+        listPlayer.update(dataPane.getJoueur());// le tableau
+        dataPane.update();// les données du joueurs dans le dataPane
     }
 }
 
 class DataPane extends JPanel {
-    private Joueur jr;
-    private DataBase db;
+    //Conteneur des données du joueur actuel.
+    private Joueur jr;//Le joueur actuel
+    private DataBase db;//l'intérmidiaire entre le view et le model
+    //parametres d'affichage
     private JButton buttonPlay;
     private JPanel userData;
     private JLabel title, name, score, level;
     public DataPane(String nameJr, MouseListener listner){
         this.db = new DataBase();
+        //1.On cherche le joueurs saisi dans l'acceuil
         this.jr = db.searchInFile(nameJr);
         if(this.jr == null){
+            //2.Si il n'existe pas dans la base de données, on crée un avec son pseudo, et sa case initial dans le jeu
             this.jr = new Joueur((CaseTraversable) Terrain.caseParDefaut, 300, 1, nameJr);
+            //3.Apres la créatin du joueur, on l'ajoute à la base de données
             db.insertIntoFile(this.jr);
         }
         buttonPlay = new JButton();
@@ -103,21 +113,26 @@ class DataPane extends JPanel {
         this.setLayout(new BorderLayout());
         this.add(buttonPlay, BorderLayout.NORTH);
         this.add(userData, BorderLayout.CENTER);
-
     }
-
+    public void update(){
+        //la mise à jour des informations du joueur affichés sur l'écrane
+        this.name.setText("Pseudo: " + jr.getNom());
+        this.score.setText("Score: " + jr.getScore());
+        this.level.setText("Niveau: " + jr.getNiveau());
+    }
     public Joueur getJoueur(){
         return this.jr;
     }
 }
  class EnsembleJoueurs extends JScrollPane {
-     TreeSet<Joueur> listeJoueurs;
+    //Le tableau de tout les joueurs enregistré dans la base de données
+     TreeSet<Joueur> listeJoueurs;//Ordonnées par le score et le niveau
      JTable tableJoueurs;
 
      public EnsembleJoueurs() {
          DataBase db = new DataBase();
          listeJoueurs = db.getAllPlayers();
-         init();
+         init();//pour la création du tableau graphique avec son contenu
      }
 
      public void init() {
@@ -129,7 +144,6 @@ class DataPane extends JPanel {
              data[i][1] = jr.getNom();
              data[i][2] = jr.getNiveau();
              data[i][3] = jr.getScore();
-             System.out.println("Score angaru :" + jr.getScore() + "ref: " + jr);
              i++;
          }
          tableJoueurs = new JTable(data, columnsName);
@@ -137,6 +151,7 @@ class DataPane extends JPanel {
      }
 
      public void update(Joueur j){
+         //mise à jour des informations des joueurs dans la table
          for(Joueur jr: this.listeJoueurs){
              if(jr.getId() == j.getId()){
                  this.listeJoueurs.remove(jr);

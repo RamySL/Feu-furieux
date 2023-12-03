@@ -7,9 +7,9 @@ import java.io.Serializable;
 
 public class Joueur implements Serializable, Comparable{
     public static int id_courant;
-    private CaseTraversable c;
+    private transient CaseTraversable c;
     private int resistance;
-    private int cles;
+    private transient int cles;
     private String nom;
 
     private int id, score, niveau;
@@ -107,8 +107,10 @@ public class Joueur implements Serializable, Comparable{
         return this.nom.compareTo(str)==0;
     }
     public int compareTo(Object o){
-        if(this.score == ((Joueur) o).score) return this.id - ((Joueur) o).id;
-        else return this.score - ((Joueur) o).score;
+        if ((this.niveau == ((Joueur) o).niveau))
+            if(this.score == ((Joueur) o).score) return this.id - ((Joueur) o).id;
+            else return - this.score + ((Joueur) o).score;//trier selon ordre décroissant
+        else return - this.niveau + ((Joueur) o).niveau;
 
     }
     public void setCase(CaseTraversable cc){
@@ -121,10 +123,11 @@ public class Joueur implements Serializable, Comparable{
         this.cles = cles;
     }
     public void setScore(int sc){
+        //méthode qui gére l'incrémentation du niveau et score d'une manière logarithmique
         this.score += sc;
         if(this.score >= (this.niveau + 1) * 1000){
-            this.niveau += this.score / (this.niveau + 1) * 1000;
-            this.score -= (this.niveau + 1) * 1000;
+            this.niveau += this.score / ((this.niveau + 1) * 1000);
+            this.score -= this.niveau * 1000;
         }
     }
 }
