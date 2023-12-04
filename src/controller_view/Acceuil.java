@@ -27,8 +27,8 @@ public class Acceuil extends JPanel implements MouseListener, KeyListener, Focus
     public Acceuil(JFrame frame, String terrain) {
         //l'écrane d'acceuil oprend en arguments le frame et le nom du terrain pour créer e tapis du jeu
         // vont definire la taille de back image
-        int hauteurfen = 400;
-        int largeurfen = 700;
+        int hauteurfen = 500;
+        int largeurfen = 800;
 
         this.terrain = terrain;
         this.frame = frame;
@@ -56,9 +56,72 @@ public class Acceuil extends JPanel implements MouseListener, KeyListener, Focus
         //Box layout pour afficher verticalement
         //container.setLayout(new BoxLayout(container, BoxLayout.Y_AXIS));
         //container.setOpaque(false);
-        this.container.setPreferredSize(new Dimension(200, 200));
+        this.container.setPreferredSize(new Dimension( (int)(0.25 * largeurfen), 200));
         this.container.add(this.pseudo);
         this.container.add(this.start);
+
+        // Pour un usage futur
+        JPanel leftContainer = new JPanel();
+        leftContainer.setBackground(new Color(0x014213D, true));
+        //leftcontainer.setLayout(null);
+        leftContainer.setPreferredSize(new Dimension( (int)(0.25 * largeurfen), 200));
+
+        // footer
+        JPanel footerContainer = new JPanel();
+        footerContainer.setLayout(new BorderLayout());
+        footerContainer.setBackground(new Color(0x014213D, true));
+        //leftcontainer.setLayout(null);
+        footerContainer.setPreferredSize(new Dimension(200, (int)(0.05 * hauteurfen)));
+
+
+        JLabel copyright = new JLabel("By Ramy SAIL & Oualid CHABANE. Groupe 1 L2 informatique ");
+        JLabel annee = new JLabel("2023/2024");
+        //copyright.setPreferredSize(new Dimension(300,20));
+        copyright.setForeground(Color.WHITE);
+        annee.setForeground(Color.WHITE);
+        footerContainer.add(copyright,BorderLayout.WEST);
+        footerContainer.add(annee,BorderLayout.EAST);
+
+        // Image de Saclay
+//        BufferedImage buffSaclayIcon = null;
+//        try {
+//            buffSaclayIcon = ImageIO.read(new File("src/assets/Logo_Université_Paris-Saclay.svg.png"));
+//            Image saclayImage = buffSaclayIcon.getScaledInstance(150, 150, Image.SCALE_SMOOTH);
+//            ImageIcon saclayIcon = new ImageIcon(saclayImage);
+//            JLabel saclayLabel = new JLabel(saclayIcon);
+//            saclayLabel.setPreferredSize(new Dimension(300,300));
+//            leftContainer.add(saclayLabel);
+//            saclayLabel.setBorder(new LineBorder(Color.GREEN,2));
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
+
+        ImageIcon saclayIcon = new ImageIcon("src/assets/Université_Paris-Saclay.png");
+        JLabel saclayLabel = new JLabel(saclayIcon);
+        leftContainer.add(saclayLabel);
+
+        // BoderLayout.CENTER
+        JPanel centreAcceuil = new JPanel();
+        centreAcceuil.setLayout(null);
+        centreAcceuil.setBackground(new Color(255,255,255, 0));
+        //centreAcceuil.setPreferredSize(new Dimension(500,200));
+
+        // Cette partie n'est pas relié aux dimensions de la fenetre !
+        JLabel presentationJeu = new JLabel("Feu Furieux");
+        presentationJeu.setForeground(Color.WHITE);
+        presentationJeu.setFont(new Font("Arial", Font.BOLD, 40));
+        presentationJeu.setBounds(150,0,300,300);
+        centreAcceuil.add(presentationJeu);
+
+
+        // Les bordures juste pour la visivilité
+        //this.container.setBorder(new LineBorder(Color.GREEN,2));
+        //leftContainer.setBorder(new LineBorder(Color.GREEN,2));
+        //footerContainer.setBorder(new LineBorder(Color.GREEN,2));
+        //copyright.setBorder(new LineBorder(Color.GREEN,2));
+        //saclayLabel.setBorder(new LineBorder(Color.RED,2));
+        //centreAcceuil.setBorder(new LineBorder(Color.GREEN,2));
+        //presentationJeu.setBorder(new LineBorder(Color.GREEN,2));
         try {
             this.myPicture = ImageIO.read(new File("src/assets/acceuil.jpg"));
             this.image = myPicture.getScaledInstance(largeurfen, hauteurfen, Image.SCALE_DEFAULT);
@@ -71,6 +134,9 @@ public class Acceuil extends JPanel implements MouseListener, KeyListener, Focus
 
         this.picLabel.setLayout(new BorderLayout());
         this.picLabel.add(this.container, BorderLayout.EAST);
+        this.picLabel.add(leftContainer,BorderLayout.WEST);
+        this.picLabel.add(footerContainer,BorderLayout.SOUTH);
+        this.picLabel.add(centreAcceuil, BorderLayout.CENTER);
         //container.setBackground(new Color(222, 232, 133));
         //container.setSize(new Dimension(400, 400));
         //this.add(superPanel);
