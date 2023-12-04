@@ -77,8 +77,8 @@ public class Furfeux {
         FenetreJeu graphic = new FenetreJeu(jeu.terrain,fr);
         Timer timer = new Timer(tempo, e -> {
             jeu.tour();
-            graphic.actuVie();
-            graphic.actuCles();
+            //graphic.actuVie();
+            //graphic.actuCles();
             graphic.repaint();
             if (jeu.partieFinie()) {
                 graphic.ecranFinal(Math.max(0, jeu.joueur.getResistance()));

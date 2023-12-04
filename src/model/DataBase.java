@@ -10,7 +10,7 @@ public class DataBase {
     //Joueur.bin la base de données de sjoueurs
     //paraametresJeu, contient l'id du prochain joueur à ajouter à la base de données
     public static final int move_sound = 0;
-    private final String paramsFile= "C:\\Users\\Oualid_CHABANE\\IdeaProjects\\projet_feu_furieux\\src\\files\\parametresJeu.bin", filePath = "C:\\Users\\Oualid_CHABANE\\IdeaProjects\\projet_feu_furieux\\src\\files\\joueurs.bin";
+    private final String paramsFile= "src/files/parametresJeu.bin", filePath = "src/files/joueurs.bin";
     public Joueur searchInFile(String name){
         try (ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream(filePath))) {
             boolean stop = false;
