@@ -122,11 +122,11 @@ public class FenetreJeu extends JPanel implements KeyListener {
         for (int i = 0; i < terrain.getHauteur(); i++) {
             for (int j = 0; j < terrain.getLargeur(); j++) {
                 if ((i - centrey) * (i - centrey) + (j - centrex) * (j - centrex) <= this.rayon2) {
-                    terrain.getCarte()[i][j].paint(g, centrex - 4, centrey - 4);
+                    terrain.getCarte()[i][j].paint(g, centrex - 7, centrey - 5);
                 }
             }
         }
-        terrain.getJoueur().paint(g, centrex - 4, centrey - 4);
+        terrain.getJoueur().paint(g, centrex - 7, centrey - 5);
     }
 
     public void ecranFinal(int n) {

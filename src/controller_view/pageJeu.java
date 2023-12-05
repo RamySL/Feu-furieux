@@ -50,27 +50,31 @@ public class pageJeu extends JPanel implements MouseListener, ContainerListener 
         // coté gauche de la fen
         JPanel westSide = new JPanel();
         westSide.setPreferredSize(new Dimension(150,100));
+        westSide.setBackground(new Color(0xFFFFFF, true));
         westSide.add (quit);
 
         // le haut de la fen
         JPanel northSide = new JPanel();
+        northSide.setBackground(new Color(0xFFFFFF, true));
         northSide.setPreferredSize(new Dimension(100,70));
 
         // le bas de la fenetre
         JPanel southSide = new JPanel();
+        southSide.setBackground(new Color(0xFFFFFF, true));
         southSide.setPreferredSize(new Dimension(100,50));
         // coté droit de la fenetre
         JPanel eastSide = new JPanel();
+        eastSide.setBackground(new Color(0xFFFFFF, true));
         eastSide.setPreferredSize(new Dimension(150,100));
         // le centre de la fenetre
         JPanel center = new JPanel();
         center.add(ff);
 
         //Image de fond (on va la mettre sur un JLabel
-        ImageIcon fondImage = new ImageIcon("src/assets/Flag_of_Algeria.svg.png");
+        ImageIcon fondImage = new ImageIcon("src/assets/jeu_back_pic.jpg");
         JLabel fondLabel = new JLabel(fondImage);
         fondLabel.setPreferredSize(new Dimension(800,500));
-        this.add(fondLabel);
+        fondLabel.setLayout(new BorderLayout());
 
 
         timer = new Timer(tempo, e -> {
@@ -98,11 +102,11 @@ public class pageJeu extends JPanel implements MouseListener, ContainerListener 
         //régulation de l'affichage
 
         this.addContainerListener(this);
-//        fondLabel.add(westSide, BorderLayout.WEST);
-//        fondLabel.add(northSide,BorderLayout.NORTH);
-//        fondLabel.add(southSide,BorderLayout.SOUTH);
-//        fondLabel.add(eastSide,BorderLayout.EAST);
-//        fondLabel.add(center,BorderLayout.CENTER);
+        fondLabel.add(westSide, BorderLayout.WEST);
+        fondLabel.add(northSide,BorderLayout.NORTH);
+        fondLabel.add(southSide,BorderLayout.SOUTH);
+        fondLabel.add(eastSide,BorderLayout.EAST);
+        fondLabel.add(center,BorderLayout.CENTER);
         this.add(fondLabel);
 
         this.frame.getContentPane().removeAll();
