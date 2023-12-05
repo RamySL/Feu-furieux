@@ -41,10 +41,10 @@ public class pageJeu extends JPanel implements MouseListener, ContainerListener 
 
         quit = new JButton("Quitter");
         quit.addMouseListener(this);
-        quit.setPreferredSize(new Dimension(200, 50));
+        quit.setPreferredSize(new Dimension(100, 50));
         quit.setFont(new Font("Arial", Font.BOLD, 16));
         quit.setForeground(new Color(0x463f3a));
-        quit.setBackground(new Color(0xf72585));
+        quit.setBackground(new Color(0xFFD5D5DA, true));
         quit.setFocusPainted(false);
 
         // coté gauche de la fen
