@@ -79,13 +79,21 @@ public class Joueur implements Serializable, Comparable{
         if(c == null)
             return;
         if(c instanceof Porte){
+
             if(!((Porte) c).estOuverte() && cles > 0){
                 ((Porte) c).ouvrire();
                 cles--;
+                // on met le joueur dans sa nouvelle case c (la case elle sait qu'il ya le joueur)
                 c.entre(this);
+                // mais le joueur ne sait pas encore su'il a changé de case
+                // on le fait ici
                 this.c = c;
                 return;
-            } else if(((Porte) c).estOuverte()){
+            } else if (!((Porte) c).estOuverte()){
+                return;
+            }
+
+            else if(((Porte) c).estOuverte()){
                 c.entre(this);
                 this.c = c;
                 return;

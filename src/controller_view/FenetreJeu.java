@@ -4,6 +4,7 @@ import model.*;
 
 import javax.sound.sampled.*;
 import javax.swing.*;
+import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -22,24 +23,23 @@ public class FenetreJeu extends JPanel implements KeyListener {
     public FenetreJeu(Terrain t, JFrame frame) {
         this.hauteur = t.getHauteur();
         this.largeur = t.getLargeur();
-        fenetreHaut = 9;
-        fenetreLarg = 9;
+        fenetreHaut = 15;
+        fenetreLarg = 15;
         rayon2 = 10;
         this.terrain = t;
-
+        this.frame = frame;
+        Joueur joueur = this.terrain.getJoueur();
         ////////////////////////////////////////////////////////////////////////////////////////////////
         // largeur et heuteur du menu de partie
 
         int largeurMenu = this.fenetreLarg * tailleCase;
         int hauteurMenu = 40;
 
-        Joueur joueur = this.terrain.getJoueur();
-
         setBackground(Color.LIGHT_GRAY);
         setPreferredSize(new Dimension(this.fenetreLarg * tailleCase,  this.fenetreHaut * tailleCase));
 
+        this.setLayout(new BorderLayout());
         //JFrame frame = new JFrame("FurFeux Oualid & Ramy");
-        this.frame = frame;
 
         /* Le panel qui va contenir les infos du joueur pendant la partie
         comme son nombre de clés son niveau de vie son pseudo (l'actualisation de l'affichage est faite dans
@@ -70,7 +70,7 @@ public class FenetreJeu extends JPanel implements KeyListener {
         // La bare de vie du joueur
         int resistance = joueur.getResistance();
         barVie = new JProgressBar(0,resistance);
-        barVie.setBounds((int)(largeurMenu * 0.2),0,(int)(largeurMenu * 0.6),hauteurMenu);
+        barVie.setBounds((int)(largeurMenu * 0.2),0,(int)(largeurMenu * 0.8),hauteurMenu);
         barVie.setFont(new Font("MV Boli",Font.BOLD,20));
         barVie.setValue(resistance);
         barVie.setBackground(Color.BLACK);
@@ -87,25 +87,27 @@ public class FenetreJeu extends JPanel implements KeyListener {
 //        infoJoueur.add(bouttonPause);//, BorderLayout.EAST);
 
 
-        frame.addKeyListener(this);
+        //frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.add(infoJoueur,BorderLayout.NORTH);
 
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.add(infoJoueur,BorderLayout.NORTH);
-        frame.getContentPane().add(this);
-        frame.pack();
-        frame.setVisible(true);
-
+        //Boders
+        this.setBorder(new LineBorder(Color.RED,2));
+        //frame.getContentPane().add(this);
 
         //////////////////////////////////////////////////////////////////////////////////////////////////////
-
-        //setBackground(Color.LIGHT_GRAY);
-        //setPreferredSize(new Dimension(this.fenetreLarg * tailleCase, this.fenetreHaut * tailleCase));
-
-        //this.frame = frame;
 
         this.frame.addKeyListener(this);
         this.frame.setFocusable(true);
         this.frame.requestFocusInWindow();
+    }
+
+    public void actuVie(){
+        int resistance = this.terrain.getJoueur().getResistance();
+        this.barVie.setValue(resistance);
+        this.barVie.setString("" + resistance);}
+
+    public void actuCles(){
+        this.nbCles.setText(String.valueOf(this.terrain.getJoueur().getCles()));
     }
 
     public void paintComponent(Graphics g) {
@@ -173,4 +175,8 @@ public class FenetreJeu extends JPanel implements KeyListener {
 
     @Override
     public void keyReleased(KeyEvent e) {}
+
+//    public public static void main(String[] args) {
+//        FenetreJeu
+//    }
 }

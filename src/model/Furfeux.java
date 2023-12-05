@@ -36,26 +36,26 @@ public class Furfeux {
         // sinon si random > 190, alors chaleur -= 1
         // sinon rien ne change
 
-        for (Case[] ligne : this.terrain.getCarte()) {
-            for (Case cc : ligne) {
-                if (cc instanceof CaseTraversable) {
-                    int sumChaleurs = 0;
-                    Random rnd = new Random();
-                    int r = rnd.nextInt(200);
-                    ArrayList<CaseTraversable> voisineChaleur = this.terrain.getVoisinesTraversables(cc.getLigne(), cc.getColone());
-                    for (CaseTraversable v : voisineChaleur) {
-                        sumChaleurs += v.getChaleur();
-                    }
-                    if (sumChaleurs > r) {
-                        ((CaseTraversable) cc).incrementeChaleur();
-                    }else if (r > 190){
-                        ((CaseTraversable) cc).decrementeChaleur();
-                    }
-
-                }
-            }
-
-        }
+//        for (Case[] ligne : this.terrain.getCarte()) {
+//            for (Case cc : ligne) {
+//                if (cc instanceof CaseTraversable) {
+//                    int sumChaleurs = 0;
+//                    Random rnd = new Random();
+//                    int r = rnd.nextInt(200);
+//                    ArrayList<CaseTraversable> voisineChaleur = this.terrain.getVoisinesTraversables(cc.getLigne(), cc.getColone());
+//                    for (CaseTraversable v : voisineChaleur) {
+//                        sumChaleurs += v.getChaleur();
+//                    }
+//                    if (sumChaleurs > r) {
+//                        ((CaseTraversable) cc).incrementeChaleur();
+//                    }else if (r > 190){
+//                        ((CaseTraversable) cc).decrementeChaleur();
+//                    }
+//
+//                }
+//            }
+//
+//        }
     }
 
 
@@ -77,8 +77,9 @@ public class Furfeux {
         FenetreJeu graphic = new FenetreJeu(jeu.terrain,fr);
         Timer timer = new Timer(tempo, e -> {
             jeu.tour();
-            //graphic.actuVie();
-            //graphic.actuCles();
+            //System.out.println("Je suis dans FurFeux");
+            graphic.actuVie();
+            graphic.actuCles();
             graphic.repaint();
             if (jeu.partieFinie()) {
                 graphic.ecranFinal(Math.max(0, jeu.joueur.getResistance()));

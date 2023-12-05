@@ -6,6 +6,7 @@ import model.Joueur;
 import model.Terrain;
 
 import javax.swing.*;
+import javax.swing.border.LineBorder;
 import javax.xml.crypto.Data;
 import java.awt.*;
 import java.awt.event.ContainerEvent;
@@ -29,6 +30,15 @@ public class pageJeu extends JPanel implements MouseListener, ContainerListener 
         this.menu = menu;
         this.tr = tr;
         this.frame = frame;
+        //création de la fenetre avec le meme terrain dans feufurieux
+        this.feuFurieux = new Furfeux(this.tr, menu.getJoueur());
+        this.ff = new FenetreJeu(this.feuFurieux.getTerrain(), this.frame);
+
+        this.setPreferredSize(new Dimension(1000, 600));
+        this.setLayout(new BorderLayout());
+
+
+
         quit = new JButton("Quitter");
         quit.addMouseListener(this);
         quit.setPreferredSize(new Dimension(200, 50));
@@ -36,15 +46,40 @@ public class pageJeu extends JPanel implements MouseListener, ContainerListener 
         quit.setForeground(new Color(0x463f3a));
         quit.setBackground(new Color(0xf72585));
         quit.setFocusPainted(false);
-        this.setPreferredSize(new Dimension(1000, 600));
-        this.setLayout(new BorderLayout());
-        //création de la fenetre avec le meme terrain dans feufurieux
-        this.feuFurieux = new Furfeux(this.tr, menu.getJoueur());
-        this.ff = new FenetreJeu(this.feuFurieux.getTerrain(), this.frame);
+
+        // coté gauche de la fen
+        JPanel westSide = new JPanel();
+        westSide.setPreferredSize(new Dimension(150,100));
+        westSide.add (quit);
+
+        // le haut de la fen
+        JPanel northSide = new JPanel();
+        northSide.setPreferredSize(new Dimension(100,70));
+
+        // le bas de la fenetre
+        JPanel southSide = new JPanel();
+        southSide.setPreferredSize(new Dimension(100,50));
+        // coté droit de la fenetre
+        JPanel eastSide = new JPanel();
+        eastSide.setPreferredSize(new Dimension(150,100));
+        // le centre de la fenetre
+        JPanel center = new JPanel();
+        center.add(ff);
+
+        //Image de fond (on va la mettre sur un JLabel
+        ImageIcon fondImage = new ImageIcon("src/assets/Flag_of_Algeria.svg.png");
+        JLabel fondLabel = new JLabel(fondImage);
+        fondLabel.setPreferredSize(new Dimension(800,500));
+        this.add(fondLabel);
+
 
         timer = new Timer(tempo, e -> {
+            System.out.println(this.menu.getJoueur().getResistance());
             feuFurieux.tour();
             ff.repaint();
+            // c'est pour actualiser l'affichage de la barre de vie et nb de clés
+            ff.actuVie();
+            ff.actuCles();
             if (feuFurieux.partieFinie()) {
                 feuFurieux.getJoueur().setScore(feuFurieux.getJoueur().getResistance());
                 ff.ecranFinal(Math.max(0, feuFurieux.getJoueur().getScore()));
@@ -52,10 +87,24 @@ public class pageJeu extends JPanel implements MouseListener, ContainerListener 
                 System.out.println("Ref init: " + this.menu.getJoueur());
             }
         });
+
+        //Les bordures pour le débuggage
+        westSide.setBorder(new LineBorder(Color.GREEN,2));
+        eastSide.setBorder(new LineBorder(Color.GREEN,2));
+        southSide.setBorder(new LineBorder(Color.GREEN,2));
+        center.setBorder(new LineBorder(Color.GREEN,2));
+        northSide.setBorder(new LineBorder(Color.GREEN,2));
+
         //régulation de l'affichage
-        this.add(ff, BorderLayout.CENTER);
+
         this.addContainerListener(this);
-        this.add(quit, BorderLayout.WEST);
+//        fondLabel.add(westSide, BorderLayout.WEST);
+//        fondLabel.add(northSide,BorderLayout.NORTH);
+//        fondLabel.add(southSide,BorderLayout.SOUTH);
+//        fondLabel.add(eastSide,BorderLayout.EAST);
+//        fondLabel.add(center,BorderLayout.CENTER);
+        this.add(fondLabel);
+
         this.frame.getContentPane().removeAll();
         this.frame.add(this);
         this.frame.revalidate();
@@ -101,4 +150,5 @@ public class pageJeu extends JPanel implements MouseListener, ContainerListener 
         timer.stop();
         //On arret le timer quand on sort du jeu vers le menu
     }
+
 }

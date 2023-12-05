@@ -60,7 +60,6 @@ public class Acceuil extends JPanel implements MouseListener, KeyListener, Focus
         this.container.add(this.pseudo);
         this.container.add(this.start);
 
-        // Pour un usage futur
         JPanel leftContainer = new JPanel();
         leftContainer.setBackground(new Color(0x014213D, true));
         //leftcontainer.setLayout(null);
@@ -95,6 +94,7 @@ public class Acceuil extends JPanel implements MouseListener, KeyListener, Focus
 //        } catch (IOException e) {
 //            throw new RuntimeException(e);
 //        }
+
 
         ImageIcon saclayIcon = new ImageIcon("src/assets/Université_Paris-Saclay.png");
         JLabel saclayLabel = new JLabel(saclayIcon);
@@ -258,7 +258,6 @@ public class Acceuil extends JPanel implements MouseListener, KeyListener, Focus
 }
 
 class Main{
-
 
     public static void main(String args[]){
         //Ici ou on commence le jeu
