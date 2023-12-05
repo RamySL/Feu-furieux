@@ -2,6 +2,7 @@ package model;
 
 import com.sun.source.tree.CaseTree;
 
+import javax.swing.*;
 import java.awt.*;
 import java.io.Serializable;
 
@@ -71,9 +72,12 @@ public class Joueur implements Serializable, Comparable{
 
     public void paint (Graphics g, int translationX, int translationY){
         int tailleCase = this.c.getTailleCase();
-        g.setColor(new Color(190,100,50));
-        g.fillOval((this.c.getColone() - translationX) * tailleCase, (this.c.getLigne() - translationY) * tailleCase,tailleCase,tailleCase);
-    }
+        // sans le getImage on a un objet ImageIcone
+        Image joueurImage = (new ImageIcon("src/assets/joueur.png")).getImage() ;
+        g.drawImage(joueurImage
+                , (this.c.getColone() - translationX) * tailleCase,
+                (this.c.getLigne() - translationY) * tailleCase, tailleCase ,tailleCase , Color.WHITE, null);}
+
 
     public void deplacer(CaseTraversable c) {
         if(c == null)

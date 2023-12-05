@@ -12,7 +12,8 @@ import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
 
-public class Acceuil extends JPanel implements MouseListener, KeyListener, FocusListener, WindowListener {
+public class
+Acceuil extends JPanel implements MouseListener, KeyListener, FocusListener, WindowListener {
     private JTextField pseudo;//Nom de l'utilisateur, s'il n'éxiste pas, il va etre crrée et ajouté à la base de données
     private JButton start;//Acceder au menu
     private Image image;//background image

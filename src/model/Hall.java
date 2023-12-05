@@ -2,6 +2,7 @@ package model;
 
 import model.CaseTraversable;
 
+import javax.swing.*;
 import java.awt.*;
 
 public class Hall extends CaseTraversable {
@@ -54,8 +55,15 @@ public class Hall extends CaseTraversable {
             super.paint(g, translationX, translationY);
             if (this.possedeCle()) {
                 //g.setColor(Color.LIGHT_GRAY);
-                g.setColor(new Color(150, 150, 150));
-                g.fillRect((this.getColone() - translationX) * this.tailleCase, (this.getLigne() - translationY) * this.tailleCase, Case.tailleCle, Case.tailleCle);
+                //g.setColor(new Color(150, 150, 150));
+
+                // sans le getImage on a un objet ImageIcone
+                Image cleImage = (new ImageIcon("src/assets/key2.png")).getImage() ;
+                g.drawImage(cleImage
+                        , (this.getColone() - translationX) * this.tailleCase,
+                        (this.getLigne() - translationY) * this.tailleCase, Case.tailleCle, Case.tailleCle, Color.WHITE, null);
+
+                //g.fillRect((this.getColone() - translationX) * this.tailleCase, (this.getLigne() - translationY) * this.tailleCase, Case.tailleCle, Case.tailleCle);
             }
         }
 }

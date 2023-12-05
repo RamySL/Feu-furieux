@@ -4,7 +4,7 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public abstract class Case {
-        static final int tailleCle = 15;
+        static final int tailleCle = 20;
         protected final int lig, col;
 
         protected int tailleCase = 36;
