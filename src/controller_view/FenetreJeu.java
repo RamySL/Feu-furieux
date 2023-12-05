@@ -35,7 +35,7 @@ public class FenetreJeu extends JPanel implements KeyListener {
         int largeurMenu = this.fenetreLarg * tailleCase;
         int hauteurMenu = 40;
 
-        setBackground(Color.LIGHT_GRAY);
+        this.setBackground(new Color(35, 20, 32, 255));
         setPreferredSize(new Dimension(this.fenetreLarg * tailleCase,  this.fenetreHaut * tailleCase));
 
         this.setLayout(new BorderLayout());
@@ -91,7 +91,7 @@ public class FenetreJeu extends JPanel implements KeyListener {
         this.add(infoJoueur,BorderLayout.NORTH);
 
         //Boders
-        this.setBorder(new LineBorder(Color.RED,2));
+        //this.setBorder(new LineBorder(Color.RED,2));
         //frame.getContentPane().add(this);
 
         //////////////////////////////////////////////////////////////////////////////////////////////////////

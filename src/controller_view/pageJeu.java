@@ -68,6 +68,7 @@ public class pageJeu extends JPanel implements MouseListener, ContainerListener 
         eastSide.setPreferredSize(new Dimension(150,100));
         // le centre de la fenetre
         JPanel center = new JPanel();
+        center.setBackground(new Color(255, true));
         center.add(ff);
 
         //Image de fond (on va la mettre sur un JLabel
@@ -78,7 +79,6 @@ public class pageJeu extends JPanel implements MouseListener, ContainerListener 
 
 
         timer = new Timer(tempo, e -> {
-            System.out.println(this.menu.getJoueur().getResistance());
             feuFurieux.tour();
             ff.repaint();
             // c'est pour actualiser l'affichage de la barre de vie et nb de clés
@@ -93,11 +93,11 @@ public class pageJeu extends JPanel implements MouseListener, ContainerListener 
         });
 
         //Les bordures pour le débuggage
-        westSide.setBorder(new LineBorder(Color.GREEN,2));
-        eastSide.setBorder(new LineBorder(Color.GREEN,2));
-        southSide.setBorder(new LineBorder(Color.GREEN,2));
-        center.setBorder(new LineBorder(Color.GREEN,2));
-        northSide.setBorder(new LineBorder(Color.GREEN,2));
+//        westSide.setBorder(new LineBorder(Color.GREEN,2));
+//        eastSide.setBorder(new LineBorder(Color.GREEN,2));
+//        southSide.setBorder(new LineBorder(Color.GREEN,2));
+//        center.setBorder(new LineBorder(Color.GREEN,2));
+//        northSide.setBorder(new LineBorder(Color.GREEN,2));
 
         //régulation de l'affichage
 
