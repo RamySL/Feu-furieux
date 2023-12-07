@@ -61,7 +61,7 @@ public class Hall extends CaseTraversable {
                 Image cleImage = (new ImageIcon("src/assets/key2.png")).getImage() ;
                 g.drawImage(cleImage
                         , (this.getColone() - translationX) * this.tailleCase,
-                        (this.getLigne() - translationY) * this.tailleCase, Case.tailleCle, Case.tailleCle, Color.WHITE, null);
+                        (this.getLigne() - translationY) * this.tailleCase, Case.tailleCle, Case.tailleCle, new Color(255, true), null);
 
                 //g.fillRect((this.getColone() - translationX) * this.tailleCase, (this.getLigne() - translationY) * this.tailleCase, Case.tailleCle, Case.tailleCle);
             }

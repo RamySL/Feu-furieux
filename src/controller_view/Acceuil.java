@@ -162,8 +162,6 @@ Acceuil extends JPanel implements MouseListener, KeyListener, FocusListener, Win
 
     }
 
-
-
     @Override
     public void keyReleased(KeyEvent e) {
 

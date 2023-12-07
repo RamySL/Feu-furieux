@@ -36,26 +36,26 @@ public class Furfeux {
         // sinon si random > 190, alors chaleur -= 1
         // sinon rien ne change
 
-//        for (Case[] ligne : this.terrain.getCarte()) {
-//            for (Case cc : ligne) {
-//                if (cc instanceof CaseTraversable) {
-//                    int sumChaleurs = 0;
-//                    Random rnd = new Random();
-//                    int r = rnd.nextInt(200);
-//                    ArrayList<CaseTraversable> voisineChaleur = this.terrain.getVoisinesTraversables(cc.getLigne(), cc.getColone());
-//                    for (CaseTraversable v : voisineChaleur) {
-//                        sumChaleurs += v.getChaleur();
-//                    }
-//                    if (sumChaleurs > r) {
-//                        ((CaseTraversable) cc).incrementeChaleur();
-//                    }else if (r > 190){
-//                        ((CaseTraversable) cc).decrementeChaleur();
-//                    }
-//
-//                }
-//            }
-//
-//        }
+        for (Case[] ligne : this.terrain.getCarte()) {
+            for (Case cc : ligne) {
+                if (cc instanceof CaseTraversable) {
+                    int sumChaleurs = 0;
+                    Random rnd = new Random();
+                    int r = rnd.nextInt(200);
+                    ArrayList<CaseTraversable> voisineChaleur = this.terrain.getVoisinesTraversables(cc.getLigne(), cc.getColone());
+                    for (CaseTraversable v : voisineChaleur) {
+                        sumChaleurs += v.getChaleur();
+                    }
+                    if (sumChaleurs > r) {
+                        ((CaseTraversable) cc).incrementeChaleur();
+                    }else if (r > 190){
+                        ((CaseTraversable) cc).decrementeChaleur();
+                    }
+
+                }
+            }
+
+        }
     }
 
 

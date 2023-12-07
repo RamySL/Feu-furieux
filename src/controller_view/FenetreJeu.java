@@ -23,8 +23,8 @@ public class FenetreJeu extends JPanel implements KeyListener {
     public FenetreJeu(Terrain t, JFrame frame) {
         this.hauteur = t.getHauteur();
         this.largeur = t.getLargeur();
-        fenetreHaut = 15;
-        fenetreLarg = 15;
+        fenetreHaut = 14;
+        fenetreLarg = 14;
         rayon2 = 10;
         this.terrain = t;
         this.frame = frame;
@@ -135,7 +135,9 @@ public class FenetreJeu extends JPanel implements KeyListener {
         Component parent = this.getParent();
         ((JPanel) parent).remove(this);
         JLabel label = new JLabel("Score " + n);
+        label.setForeground(Color.WHITE);
         label.setFont(new Font("Verdana", 1, 20));
+        label.setVerticalAlignment(SwingConstants.CENTER);
         label.setHorizontalAlignment(SwingConstants.CENTER);
         label.setSize(this.getSize());
         ((JPanel) parent).add(label, BorderLayout.CENTER);

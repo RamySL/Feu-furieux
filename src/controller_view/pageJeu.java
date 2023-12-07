@@ -50,25 +50,25 @@ public class pageJeu extends JPanel implements MouseListener, ContainerListener 
         // coté gauche de la fen
         JPanel westSide = new JPanel();
         westSide.setPreferredSize(new Dimension(150,100));
-        westSide.setBackground(new Color(0xFFFFFF, true));
+        westSide.setBackground(new Color(0x290025));
         westSide.add (quit);
 
         // le haut de la fen
         JPanel northSide = new JPanel();
-        northSide.setBackground(new Color(0xFFFFFF, true));
+        northSide.setBackground(new Color(0x290025));
         northSide.setPreferredSize(new Dimension(100,70));
 
         // le bas de la fenetre
         JPanel southSide = new JPanel();
-        southSide.setBackground(new Color(0xFFFFFF, true));
+        southSide.setBackground(new Color(0x290025));
         southSide.setPreferredSize(new Dimension(100,50));
         // coté droit de la fenetre
         JPanel eastSide = new JPanel();
-        eastSide.setBackground(new Color(0xFFFFFF, true));
+        eastSide.setBackground(new Color(0x290025));
         eastSide.setPreferredSize(new Dimension(150,100));
         // le centre de la fenetre
         JPanel center = new JPanel();
-        center.setBackground(new Color(255, true));
+        center.setBackground(new Color(0,0,0));
         center.add(ff);
 
         //Image de fond (on va la mettre sur un JLabel
