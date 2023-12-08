@@ -2,6 +2,7 @@ package controller_view;
 
 import model.*;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import javax.xml.crypto.Data;
@@ -10,6 +11,9 @@ import java.awt.event.ContainerEvent;
 import java.awt.event.ContainerListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 public class pageJeu extends JPanel implements MouseListener, ContainerListener {
     //Contenaire du jeu avec le bouton de retour vers le menu
@@ -47,25 +51,37 @@ public class pageJeu extends JPanel implements MouseListener, ContainerListener 
         // coté gauche de la fen
         JPanel westSide = new JPanel();
         westSide.setPreferredSize(new Dimension(150,100));
-        westSide.setBackground(new Color(0x290025));
+        westSide.setBackground(new Color(0x232323));
         westSide.add (quit);
 
         // le haut de la fen
         JPanel northSide = new JPanel();
-        northSide.setBackground(new Color(0x290025));
+        northSide.setBackground(new Color(0x232323));
         northSide.setPreferredSize(new Dimension(100,70));
+
+        // drapeau Algérie
+        try {
+            BufferedImage dzBuffered = ImageIO.read(new File("src/assets/images/dz.png"));
+            Image dzImage = dzBuffered.getScaledInstance(100, 70, Image.SCALE_DEFAULT);
+            JLabel dzLabel = new JLabel(new ImageIcon(dzImage));
+            northSide.add(dzLabel);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+
 
         // le bas de la fenetre
         JPanel southSide = new JPanel();
-        southSide.setBackground(new Color(0x290025));
+        southSide.setBackground(new Color(0x232323));
         southSide.setPreferredSize(new Dimension(100,50));
         // coté droit de la fenetre
         JPanel eastSide = new JPanel();
-        eastSide.setBackground(new Color(0x290025));
+        eastSide.setBackground(new Color(0x232323));
         eastSide.setPreferredSize(new Dimension(150,100));
         // le centre de la fenetre
         JPanel center = new JPanel();
-        center.setBackground(new Color(0,0,0));
+        center.setBackground(new Color(0, 0, 0));
         center.add(ff);
 
         //Image de fond (on va la mettre sur un JLabel

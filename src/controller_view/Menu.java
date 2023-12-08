@@ -40,7 +40,7 @@ public class Menu extends JSplitPane implements MouseListener, KeyListener{
         this.setLeftComponent(dataPane);
 
         this.setRightComponent(listPlayer);
-        this.setBackground(new Color(0x290025));
+        this.setBackground(new Color(0x232323));
         this.frame.getContentPane().removeAll();//on supprime tous qui est dans le frame poue afficher le menu, on réutilise le meme frame dans tout le jeu
         this.setPreferredSize(new Dimension(1000, 600));
         this.frame.add(this);
@@ -64,13 +64,11 @@ public class Menu extends JSplitPane implements MouseListener, KeyListener{
 
     @Override
     public void mouseEntered(MouseEvent e) {
-        ((JButton) e.getSource()).setBackground(new Color(0x2980b9));
         ((JButton) e.getSource()).setPreferredSize(new Dimension(220, 60));
     }
 
     @Override
     public void mouseExited(MouseEvent e) {
-        ((JButton) e.getSource()).setBackground(new Color(0xf72585));
         ((JButton) e.getSource()).setPreferredSize(new Dimension(200, 50));
     }
 
@@ -120,13 +118,13 @@ class DataPane extends JPanel  {
             //3.Apres la créatin du joueur, on l'ajoute à la base de données
             db.insertIntoFile(this.jr);
         }
-        this.setBackground(new Color(0x290025));
+        this.setBackground(new Color(0x232323));
         buttonPlay = new JButton();
         //buttonPlay.setPreferredSize(new Dimension(100, 50));
         buttonPlay.setFont(new Font("Arial", Font.BOLD, 16));
         buttonPlay.setText("Jouer");
         buttonPlay.setForeground(new Color(255,255,255));
-        buttonPlay.setBackground(new Color(0x3a015c));
+        buttonPlay.setBackground(new Color(0x000000));
         buttonPlay.setFocusPainted(false);
         buttonPlay.addMouseListener(listner);
         buttonPlay.setBounds((int)(Menu.leftSize * 0.1),20,(int)(Menu.leftSize * 0.8),50);
@@ -136,7 +134,7 @@ class DataPane extends JPanel  {
         //coordPanel.setBorder(new LineBorder(Color.GREEN,2));
 
         JPanel titlePanel = new JPanel();
-        titlePanel.setBackground(new Color(0x3a015c));
+        titlePanel.setBackground(new Color(0x000000));
 
         userData = new JPanel();
         this.title = new JLabel("Cordonnees");
@@ -160,7 +158,7 @@ class DataPane extends JPanel  {
         this.userData.add(score);
         this.userData.add(level);
         //this.userData.setBorder(new LineBorder(Color.GREEN,2));
-        this.userData.setBackground(new Color(0x220135));
+        this.userData.setBackground(new Color(0x111111));
         //this.userData.setForeground(Color.WHITE);
         this.setLayout(null);
         this.add(buttonPlay);
@@ -207,9 +205,9 @@ class DataPane extends JPanel  {
          }
          tableJoueurs = new JTable(data, columnsName);
          setViewportView(tableJoueurs);
-         this.tableJoueurs.setBackground(new Color(0x190028));
+         this.tableJoueurs.setBackground(new Color(0x232323));
          this.tableJoueurs.setForeground(Color.WHITE);
-         viewport.setBackground(new Color(0x190028));
+         viewport.setBackground(new Color(0x232323));
      }
 
      public void update(Joueur j){

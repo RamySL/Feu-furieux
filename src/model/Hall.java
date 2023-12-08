@@ -58,7 +58,7 @@ public class Hall extends CaseTraversable {
                 //g.setColor(new Color(150, 150, 150));
 
                 // sans le getImage on a un objet ImageIcone
-                Image cleImage = (new ImageIcon("src/assets/key2.png")).getImage() ;
+                Image cleImage = (new ImageIcon("src/assets/images/key.png")).getImage() ;
                 g.drawImage(cleImage
                         , (this.getColone() - translationX) * this.tailleCase,
                         (this.getLigne() - translationY) * this.tailleCase, Case.tailleCle, Case.tailleCle, new Color(255, true), null);

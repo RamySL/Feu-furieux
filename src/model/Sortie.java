@@ -26,7 +26,7 @@ public class Sortie extends CaseTraversable {
     public void paint (Graphics g, int translationX, int translationY){
 
         // sans le getImage on a un objet ImageIcone
-        Image sortieImage = (new ImageIcon("src/assets/sortie512.png")).getImage() ;
+        Image sortieImage = (new ImageIcon("src/assets/images/sortie.png")).getImage() ;
         g.drawImage(sortieImage
                 , (this.getColone() - translationX) * this.tailleCase,
                 (this.getLigne() - translationY) * this.tailleCase, this.getTailleCase() ,this.getTailleCase() , Color.WHITE, null);

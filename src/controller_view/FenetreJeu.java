@@ -34,8 +34,8 @@ public class FenetreJeu extends JPanel implements KeyListener {
 
         int largeurMenu = this.fenetreLarg * tailleCase;
         int hauteurMenu = 40;
-
-        this.setBackground(new Color(35, 20, 32, 255));
+        //this.setBackground(new Color(0x80ffdb));
+        this.setBackground(new Color(143, 143, 143, 255));
         setPreferredSize(new Dimension(this.fenetreLarg * tailleCase,  this.fenetreHaut * tailleCase));
 
         this.setLayout(new BorderLayout());
@@ -56,7 +56,7 @@ public class FenetreJeu extends JPanel implements KeyListener {
         infoCles.setBackground(Color.CYAN);
         // Le label qui va contenir l'icone de la clé
         JLabel labelCle = new JLabel();
-        ImageIcon iconeCle = new ImageIcon("src/assets/key2.png");
+        ImageIcon iconeCle = new ImageIcon("src/assets/key.png");
         labelCle.setIcon(iconeCle);
         infoCles.add(labelCle);
         // Le label qui indique le nombre de clés
@@ -116,7 +116,7 @@ public class FenetreJeu extends JPanel implements KeyListener {
     }
 
     public void paintAll (Graphics g) {
-        // La méthode va dessiner tout les element du terrain
+        // La méthode va dessiner tous les elements du terrain
         int centrey = terrain.getJoueur().getCase().getLigne(),
         centrex = terrain.getJoueur().getCase().getColone();
         for (int i = 0; i < terrain.getHauteur(); i++) {

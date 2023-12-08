@@ -35,7 +35,7 @@ Acceuil extends JPanel implements MouseListener, KeyListener, FocusListener, Win
         this.frame = frame;
 
         this.musiqueFond = new PlaySound("src/assets/audio/MyNounSound.wav");
-        //this.musiqueFond.jouer(true);
+        this.musiqueFond.jouer(false);
 
 
         this.pseudo = new JTextField();
@@ -86,22 +86,8 @@ Acceuil extends JPanel implements MouseListener, KeyListener, FocusListener, Win
         footerContainer.add(copyright,BorderLayout.WEST);
         footerContainer.add(annee,BorderLayout.EAST);
 
-        // Image de Saclay
-//        BufferedImage buffSaclayIcon = null;
-//        try {
-//            buffSaclayIcon = ImageIO.read(new File("src/assets/Logo_Université_Paris-Saclay.svg.png"));
-//            Image saclayImage = buffSaclayIcon.getScaledInstance(150, 150, Image.SCALE_SMOOTH);
-//            ImageIcon saclayIcon = new ImageIcon(saclayImage);
-//            JLabel saclayLabel = new JLabel(saclayIcon);
-//            saclayLabel.setPreferredSize(new Dimension(300,300));
-//            leftContainer.add(saclayLabel);
-//            saclayLabel.setBorder(new LineBorder(Color.GREEN,2));
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
 
-
-        ImageIcon saclayIcon = new ImageIcon("src/assets/Université_Paris-Saclay.png");
+        ImageIcon saclayIcon = new ImageIcon("src/assets/images/Université_Paris-Saclay.png");
         JLabel saclayLabel = new JLabel(saclayIcon);
         leftContainer.add(saclayLabel);
 
@@ -128,7 +114,7 @@ Acceuil extends JPanel implements MouseListener, KeyListener, FocusListener, Win
         //centreAcceuil.setBorder(new LineBorder(Color.GREEN,2));
         //presentationJeu.setBorder(new LineBorder(Color.GREEN,2));
         try {
-            this.myPicture = ImageIO.read(new File("src/assets/acceuil.jpg"));
+            this.myPicture = ImageIO.read(new File("src/assets/images/acceuil.jpg"));
             this.image = myPicture.getScaledInstance(largeurfen, hauteurfen, Image.SCALE_DEFAULT);
             //.getScaledInstance(1000, 600, Image.SCALE_DEFAULT);
             this.picLabel = new JLabel(new ImageIcon(this.image));
@@ -269,7 +255,7 @@ class Main{
 
         //frame.setSize(new Dimension(1000, 600));
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        Acceuil ac = new Acceuil(frame, "src/model/manoir.txt");
+        Acceuil ac = new Acceuil(frame, "src/assets/terrain/manoir2.txt");
         frame.addWindowListener(ac);
         frame.pack();
         frame.setVisible(true);

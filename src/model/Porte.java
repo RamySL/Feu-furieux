@@ -44,13 +44,13 @@ public class Porte extends CaseTraversable{
 
             if (ouverte){
                 // sans le getImage on a un objet ImageIcone
-                Image porteouverteImage = (new ImageIcon("src/assets/porte_ouverte.png")).getImage() ;
+                Image porteouverteImage = (new ImageIcon("src/assets/images/double-door-opened.png")).getImage() ;
                 g.drawImage(porteouverteImage
                         , (this.getColone() - translationX) * this.tailleCase,
                         (this.getLigne() - translationY) * this.tailleCase, this.getTailleCase() ,this.getTailleCase() , Color.WHITE, null);}
             else{
                 // sans le getImage on a un objet ImageIcone
-                Image porteFermeeImage = (new ImageIcon("src/assets/porte-fermee.png")).getImage() ;
+                Image porteFermeeImage = (new ImageIcon("src/assets/images/porte-fermee_noire.png")).getImage() ;
                 g.drawImage(porteFermeeImage
                         , (this.getColone() - translationX) * this.tailleCase,
                         (this.getLigne() - translationY) * this.tailleCase, this.getTailleCase() ,this.getTailleCase() , Color.WHITE, null);

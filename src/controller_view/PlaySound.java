@@ -36,11 +36,5 @@ public class PlaySound {
     }
 
 
-//    public static void main(String[] args) {
-//        MusiqueDeFond m =new MusiqueDeFond("src/assets/audio/MyNounSound.wav");
-//        m.jouer();
-//        //JOptionPane.showMessageDialog(null,"Presse OK");
-//
-//    }
 }
 

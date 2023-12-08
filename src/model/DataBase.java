@@ -98,39 +98,7 @@ public class DataBase {
         }
     }
 
-    public void playSound(int type) {
-        String soundName;
-        switch (type) {
-            case DataBase.move_sound:
-                soundName = "path";
-                break;
-            default:
-                soundName = "anotherPath";
-                break;
-        }
-        AudioInputStream audioInputStream = null;
-        try {
-            audioInputStream = AudioSystem.getAudioInputStream(new File(soundName).getAbsoluteFile());
-        } catch (UnsupportedAudioFileException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        Clip clip = null;
-        try {
-            clip = AudioSystem.getClip();
-        } catch (LineUnavailableException e) {
-            throw new RuntimeException(e);
-        }
-        try {
-            clip.open(audioInputStream);
-        } catch (LineUnavailableException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        clip.start();
-    }
+
 
     public void writeGameParams(int params){
         DataOutputStream oos = null;
