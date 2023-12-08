@@ -92,6 +92,12 @@ public class pageJeu extends JPanel implements MouseListener, ContainerListener 
                     PlaySound looseSound = new PlaySound("src/assets/audio/loosingSound.wav");
                     looseSound.jouer(false);
                 }
+                // Pour eviter le dcalage qu'il ya entre l'affichage et l'apparition du sond
+                try {
+                    Thread.sleep(500);
+                } catch (InterruptedException ex) {
+                    throw new RuntimeException(ex);
+                }
                 feuFurieux.getJoueur().setScore(feuFurieux.getJoueur().getResistance());
                 ff.ecranFinal(Math.max(0, feuFurieux.getJoueur().getScore()));
                 ((Timer)e.getSource()).stop();
