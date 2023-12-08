@@ -5,8 +5,6 @@ import model.Joueur;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
-import javax.swing.border.Border;
-import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
@@ -25,6 +23,8 @@ Acceuil extends JPanel implements MouseListener, KeyListener, FocusListener, Win
     private String terrain;//le chemin vers fichier terrain.txt
     private Menu menu;
 
+    private PlaySound musiqueFond;
+
     public Acceuil(JFrame frame, String terrain) {
         //l'écrane d'acceuil oprend en arguments le frame et le nom du terrain pour créer e tapis du jeu
         // vont definire la taille de back image
@@ -33,6 +33,10 @@ Acceuil extends JPanel implements MouseListener, KeyListener, FocusListener, Win
 
         this.terrain = terrain;
         this.frame = frame;
+
+        this.musiqueFond = new PlaySound("src/assets/audio/MyNounSound.wav");
+        //this.musiqueFond.jouer(true);
+
 
         this.pseudo = new JTextField();
         this.pseudo.setText("Pseudo");

@@ -1,6 +1,6 @@
 package model;
 
-import com.sun.source.tree.CaseTree;
+import controller_view.PlaySound;
 
 import javax.swing.*;
 import java.awt.*;
@@ -85,6 +85,9 @@ public class Joueur implements Serializable, Comparable{
         if(c instanceof Porte){
 
             if(!((Porte) c).estOuverte() && cles > 0){
+
+                PlaySound porteOuverteSound = new PlaySound("src/assets/audio/porte_ouverte2.wav");
+                porteOuverteSound.jouer(false);
                 ((Porte) c).ouvrire();
                 cles--;
                 // on met le joueur dans sa nouvelle case c (la case elle sait qu'il ya le joueur)
@@ -104,6 +107,8 @@ public class Joueur implements Serializable, Comparable{
             }
 
         } else if (c instanceof  Hall && ((Hall) c).possedeCle()){
+                PlaySound ramassageCleSound = new PlaySound("src/assets/audio/cle.wav");
+                ramassageCleSound.jouer(false);
                 cles++;
                 ((Hall) c).supprimerCle();
         }

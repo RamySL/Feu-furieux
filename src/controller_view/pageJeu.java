@@ -1,9 +1,6 @@
 package controller_view;
 
-import model.DataBase;
-import model.Furfeux;
-import model.Joueur;
-import model.Terrain;
+import model.*;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
@@ -85,6 +82,16 @@ public class pageJeu extends JPanel implements MouseListener, ContainerListener 
             ff.actuVie();
             ff.actuCles();
             if (feuFurieux.partieFinie()) {
+                if(feuFurieux.getJoueur().getCase() instanceof Sortie){
+                    // si le joueur gagne
+                    PlaySound winSound = new PlaySound("src/assets/audio/winning.wav");
+                    winSound.jouer(false);
+                }else {
+                    // si il perd
+                    //System.out.println("je suis dans le else de perdu");
+                    PlaySound looseSound = new PlaySound("src/assets/audio/loosingSound.wav");
+                    looseSound.jouer(false);
+                }
                 feuFurieux.getJoueur().setScore(feuFurieux.getJoueur().getResistance());
                 ff.ecranFinal(Math.max(0, feuFurieux.getJoueur().getScore()));
                 ((Timer)e.getSource()).stop();

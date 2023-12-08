@@ -1,6 +1,7 @@
 package model;
 
 import controller_view.FenetreJeu;
+import controller_view.PlaySound;
 
 import javax.swing.*;
 import java.util.ArrayList;
@@ -69,25 +70,24 @@ public class Furfeux {
         return joueur;
     }
 
-    public static void main(String[] args) {
-        int tempo = 100;
-        Furfeux jeu = new Furfeux("src/model/manoir.txt");
-        JFrame fr = new JFrame();
-
-        FenetreJeu graphic = new FenetreJeu(jeu.terrain,fr);
-        Timer timer = new Timer(tempo, e -> {
-            jeu.tour();
-            //System.out.println("Je suis dans FurFeux");
-            graphic.actuVie();
-            graphic.actuCles();
-            graphic.repaint();
-            if (jeu.partieFinie()) {
-                graphic.ecranFinal(Math.max(0, jeu.joueur.getResistance()));
-                ((Timer)e.getSource()).stop();
-            }
-        });
-        timer.start();
-    }
+//    public static void main(String[] args) {
+//        int tempo = 100;
+//        Furfeux jeu = new Furfeux("src/model/manoir.txt");
+//        JFrame fr = new JFrame();
+//
+//        FenetreJeu graphic = new FenetreJeu(jeu.terrain,fr);
+//        Timer timer = new Timer(tempo, e -> {
+//            jeu.tour();
+//            //System.out.println("Je suis dans FurFeux");
+//
+//            graphic.repaint();
+//            if (jeu.partieFinie()) {
+//                graphic.ecranFinal(Math.max(0, jeu.joueur.getResistance()));
+//                ((Timer)e.getSource()).stop();
+//            }
+//        });
+//        timer.start();
+//    }
 
 
     public Terrain getTerrain(){
