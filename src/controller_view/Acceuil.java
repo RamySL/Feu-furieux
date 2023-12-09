@@ -27,7 +27,7 @@ Acceuil extends JPanel implements MouseListener, KeyListener, FocusListener, Win
     private PlaySound musiqueFond;
 
     public Acceuil(JFrame frame, String terrain) {
-        //l'écrane d'acceuil oprend en arguments le frame et le nom du terrain pour créer e tapis du jeu
+        //l'écran d'acceuil oprend en arguments le frame et le nom du terrain pour créer e tapis du jeu
         // vont definire la taille de back image
         int hauteurfen = 500;
         int largeurfen = 800;

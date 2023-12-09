@@ -9,8 +9,7 @@ public class Furfeux {
     Joueur joueur;
 
     public Furfeux(String f) {
-        this.terrain = new Terrain(f);
-        this.joueur = terrain.getJoueur();
+        this(f,(new Terrain(f)).getJoueur());
     }
     public Furfeux(String f, Joueur jr) {
         this.terrain = new Terrain(f, jr);
@@ -19,14 +18,11 @@ public class Furfeux {
 
 
     public void tour() {
-        /* À compléter */
 
         // ici il faut infliger les dégâts au joueur quand il est sur
-        // une case avec chaleur parce que c'est lié au Timer
+        // une case avec chaleur et propager les flemmes, parce que c'est lié au Timer
         CaseTraversable caseJoueur = (CaseTraversable) this.joueur.getCase();
         this.joueur.subisDegat(caseJoueur.getChaleur());
-
-        // ici il faut propager les flammes aussi
 
         // La somme de la case et de ses 8 voisines, on tire au hazard entre 0 et 199
         // si sum > random alors chaleur += 1
@@ -65,26 +61,6 @@ public class Furfeux {
     public Joueur getJoueur(){
         return joueur;
     }
-
-//    public static void main(String[] args) {
-//        int tempo = 100;
-//        Furfeux jeu = new Furfeux("src/model/manoir.txt");
-//        JFrame fr = new JFrame();
-//
-//        FenetreJeu graphic = new FenetreJeu(jeu.terrain,fr);
-//        Timer timer = new Timer(tempo, e -> {
-//            jeu.tour();
-//            //System.out.println("Je suis dans FurFeux");
-//
-//            graphic.repaint();
-//            if (jeu.partieFinie()) {
-//                graphic.ecranFinal(Math.max(0, jeu.joueur.getResistance()));
-//                ((Timer)e.getSource()).stop();
-//            }
-//        });
-//        timer.start();
-//    }
-
 
     public Terrain getTerrain(){
         return this.terrain;

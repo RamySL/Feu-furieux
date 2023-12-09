@@ -31,12 +31,9 @@ public class Menu extends JSplitPane implements MouseListener{
         this.frame = frame;
         dataPane = new DataPane(name, this);
         listPlayer = new EnsembleJoueurs();
-//        JPanel rightPanel  = new JPanel();
-//        rightPanel.setBackground(new Color(0,0,0));
-//        rightPanel.add(listPlayer);
+
         this.setDividerLocation(Menu.leftSize);
         this.setResizeWeight(0.0);
-        //this.setBackground(new Color(0x290025));
         this.setLeftComponent(dataPane);
 
         this.setRightComponent(listPlayer);

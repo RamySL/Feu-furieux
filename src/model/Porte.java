@@ -3,7 +3,6 @@ package model;
 import javax.swing.*;
 import java.awt.*;
 
-// POrte doit etendre CaseLibre
 
 public class Porte extends CaseTraversable{
     private boolean ouverte;
@@ -17,9 +16,6 @@ public class Porte extends CaseTraversable{
         return true;
     }
 
-    public void entre (Joueur j){
-        this.joueur = j;
-    }
 
     public void ouvrire(){
         this.ouverte = true;
@@ -29,15 +25,6 @@ public class Porte extends CaseTraversable{
         return ouverte;
     }
 
- /*   public boolean possedeJoueur (){
-         if (! ouverte){
-             return false;
-         }else {
-             return this.joueur != null;
-         }
-    }
-
-  */
 
     public void paint (Graphics g, int translationX, int translationY){
 

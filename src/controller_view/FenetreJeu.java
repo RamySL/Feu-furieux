@@ -17,9 +17,9 @@ public class FenetreJeu extends JPanel implements KeyListener {
     private final int hauteur, largeur, fenetreHaut, fenetreLarg, rayon2;
     private JFrame frame;
 
-    JLabel nbCles =new JLabel();
+    private JLabel nbCles =new JLabel();
 
-    JProgressBar barVie = new JProgressBar();
+    private JProgressBar barVie;
     public FenetreJeu(Terrain t, JFrame frame) {
         this.hauteur = t.getHauteur();
         this.largeur = t.getLargeur();
@@ -79,22 +79,8 @@ public class FenetreJeu extends JPanel implements KeyListener {
         barVie.setStringPainted(true);
         infoJoueur.add(barVie);//,BorderLayout.WEST);
 
-        //JLabel joueurPseudo = new JLabel();
-
-//        // Menu du jeu
-//        JButton bouttonPause = new JButton("P");
-//        bouttonPause.setBounds((int)(largeurMenu * 0.8), 0,(int)(largeurMenu * 0.2) , hauteurMenu);
-//        infoJoueur.add(bouttonPause);//, BorderLayout.EAST);
-
-
         //frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.add(infoJoueur,BorderLayout.NORTH);
-
-        //Boders
-        //this.setBorder(new LineBorder(Color.RED,2));
-        //frame.getContentPane().add(this);
-
-        //////////////////////////////////////////////////////////////////////////////////////////////////////
 
         this.frame.addKeyListener(this);
         this.frame.setFocusable(true);
@@ -117,6 +103,7 @@ public class FenetreJeu extends JPanel implements KeyListener {
 
     public void paintAll (Graphics g) {
         // La méthode va dessiner tous les elements du terrain
+        // centrex et centrey c'est les coord x et y du joueur (qui est le centre de la vue)
         int centrey = terrain.getJoueur().getCase().getLigne(),
         centrex = terrain.getJoueur().getCase().getColone();
         for (int i = 0; i < terrain.getHauteur(); i++) {
@@ -152,6 +139,7 @@ public class FenetreJeu extends JPanel implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
+
         Joueur j = this.terrain.getJoueur();
         Case cc = j.getCase(), cible = null;
         if (e.getKeyCode() == 38 && cc.getLigne() - 1 >= 0) {
@@ -168,8 +156,6 @@ public class FenetreJeu extends JPanel implements KeyListener {
 
         if(cible != null && cible.estTraversable()){
             j.deplacer((CaseTraversable) cible);
-            //(new DataBase()).playSound(DataBase.move_sound);
-            //playSound("C:\\Users\\Oualid_CHABANE\\IdeaProjects\\projet_feu_furieux\\src\\assets\\marche.wav");
         }
         repaint();
 
@@ -178,7 +164,4 @@ public class FenetreJeu extends JPanel implements KeyListener {
     @Override
     public void keyReleased(KeyEvent e) {}
 
-//    public public static void main(String[] args) {
-//        FenetreJeu
-//    }
 }

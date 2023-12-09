@@ -114,9 +114,9 @@ public class Terrain {
     public ArrayList<CaseTraversable> getVoisinesTraversables(int lig, int col) {
         /* À compléter */
         //un voisin c'est une case qui son num de ligne et de cologne ne depassent pas 1
-        // en distance avec la case courante
+            // en distance avec la case courante
 
-        // dans ce code la case courante est inclus dans la liste (card = 9)
+        // dans ce code la case courante est inclus dans la liste (cardinal = 9)
         ArrayList<CaseTraversable> res = new ArrayList<>();
 
         for (int l = 0; l< this.hauteur; l++){

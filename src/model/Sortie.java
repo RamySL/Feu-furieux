@@ -18,11 +18,6 @@ public class Sortie extends CaseTraversable {
         return true;
     }
 
-
-    public boolean possedeJoueur (){
-        return !(estTraversable ());
-    }
-
     public void paint (Graphics g, int translationX, int translationY){
 
         // sans le getImage on a un objet ImageIcone

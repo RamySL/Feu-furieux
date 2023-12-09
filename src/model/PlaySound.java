@@ -9,9 +9,9 @@ public class PlaySound {
     public PlaySound(String cheminAudio) {
         try {
             File audPath = new File(cheminAudio);
-            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(audPath);
-            clip = AudioSystem.getClip();
-            clip.open(audioInputStream);
+            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(audPath); // obtention du flux audio à partir du fichier
+            clip = AudioSystem.getClip(); // on crée un clip qui va nous permettre de lire notre audio
+            clip.open(audioInputStream); // mets le contenu de notre fichier audio dans le clip
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -20,12 +20,11 @@ public class PlaySound {
     public void jouer(boolean rejouer) {
         // le bool rejouer c'est pour relancer la musique après sa fin
         if (clip != null && !clip.isRunning()){
-            clip.setFramePosition(0);
-            clip.start();
+            clip.setFramePosition(0); // 0 c'est pour jouer le clip depuis le début
+            clip.start(); // démamare la lecture du son
         }
         if (rejouer) {
-            //JOptionPane.showMessageDialog(null,"Presse OK");
-            clip.loop(Clip.LOOP_CONTINUOUSLY);
+            clip.loop(Clip.LOOP_CONTINUOUSLY); // pour jouer le son en boucle
         }
     }
 

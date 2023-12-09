@@ -34,11 +34,7 @@ public class Joueur implements Serializable, Comparable{
 
     public void bouge(Case cible) {
         /* À compléter */
-        if (cible instanceof CaseTraversable ){
-            ((CaseTraversable) cible).entre(this);
-            this.c = ((CaseTraversable) cible);
-        }
-
+        // on a utiliser une calsse deolacer à la place
     }
 
     public int getCles(){
