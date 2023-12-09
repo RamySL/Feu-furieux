@@ -1,9 +1,5 @@
 package model;
 
-import controller_view.FenetreJeu;
-import controller_view.PlaySound;
-
-import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Random;
 

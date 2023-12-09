@@ -2,6 +2,7 @@ package controller_view;
 
 import model.DataBase;
 import model.Joueur;
+import model.PlaySound;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;

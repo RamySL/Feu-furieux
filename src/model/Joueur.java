@@ -1,7 +1,5 @@
 package model;
 
-import controller_view.PlaySound;
-
 import javax.swing.*;
 import java.awt.*;
 import java.io.Serializable;

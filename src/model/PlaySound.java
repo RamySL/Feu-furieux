@@ -1,4 +1,4 @@
-package controller_view;
+package model;
 
 import javax.sound.sampled.*;
 import java.io.File;
