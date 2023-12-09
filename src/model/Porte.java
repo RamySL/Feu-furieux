@@ -54,6 +54,7 @@ public class Porte extends CaseTraversable{
                 g.drawImage(porteFermeeImage
                         , (this.getColone() - translationX) * this.tailleCase,
                         (this.getLigne() - translationY) * this.tailleCase, this.getTailleCase() ,this.getTailleCase() , Color.WHITE, null);
+
             }
 
 

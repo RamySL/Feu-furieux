@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.io.*;
 import java.util.TreeSet;
 
-public class Menu extends JSplitPane implements MouseListener, KeyListener{
+public class Menu extends JSplitPane implements MouseListener{
     //La class menu pour afficher tout les joueurs classées selon le niveau et le score
     //Le niveau s'incrémente en incrémentant le score (le niveau n+1 demande plus de score que le niveau n, donc le niveau s'incrémente d'ine maniere logarithmique
     JFrame frame;//le meme frame dans l'acceuil est dans menu, qui sera aussi dans les autres class d'affichage
@@ -48,6 +48,8 @@ public class Menu extends JSplitPane implements MouseListener, KeyListener{
     }
     @Override
     public void mouseClicked(MouseEvent event) {
+
+
         //en clicquant sur le bouton pour commencer, on crée un instance de la page d'affichage du jeu, c'est elle qui se charge de la mise à jour du contenu du frame
         this.pagejeu = new pageJeu(this, this.frame, this.terrain);
     }
@@ -82,20 +84,8 @@ public class Menu extends JSplitPane implements MouseListener, KeyListener{
         dataPane.update();// les données du joueurs dans le dataPane
     }
 
-    @Override
-    public void keyTyped(KeyEvent e) {
 
-    }
 
-    @Override
-    public void keyPressed(KeyEvent e) {
-        System.out.println(e.getKeyCode());
-    }
-
-    @Override
-    public void keyReleased(KeyEvent e) {
-
-    }
 
 
 }
@@ -105,7 +95,7 @@ class DataPane extends JPanel  {
     private Joueur jr;//Le joueur actuel
     private DataBase db;//l'intérmidiaire entre le view et le model
     //parametres d'affichage
-    private JButton buttonPlay;
+    protected JButton buttonPlay;
     private JPanel userData;
     private JLabel title, name, score, level;
     public DataPane(String nameJr, MouseListener listner){
@@ -128,6 +118,7 @@ class DataPane extends JPanel  {
         buttonPlay.setFocusPainted(false);
         buttonPlay.addMouseListener(listner);
         buttonPlay.setBounds((int)(Menu.leftSize * 0.1),20,(int)(Menu.leftSize * 0.8),50);
+
 
         JPanel coordPanel = new JPanel();
         coordPanel.setLayout(new BorderLayout());

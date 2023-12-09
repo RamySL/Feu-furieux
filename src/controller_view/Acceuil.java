@@ -35,7 +35,7 @@ Acceuil extends JPanel implements MouseListener, KeyListener, FocusListener, Win
         this.frame = frame;
 
         this.musiqueFond = new PlaySound("src/assets/audio/MyNounSound.wav");
-        this.musiqueFond.jouer(false);
+        this.musiqueFond.jouer(true);
 
 
         this.pseudo = new JTextField();
