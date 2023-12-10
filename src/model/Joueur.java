@@ -1,7 +1,6 @@
 package model;
 
-import com.sun.source.tree.CaseTree;
-
+import javax.swing.*;
 import java.awt.*;
 import java.io.Serializable;
 
@@ -35,11 +34,11 @@ public class Joueur implements Serializable, Comparable{
 
     public void bouge(Case cible) {
         /* À compléter */
-        if (cible instanceof CaseTraversable ){
-            ((CaseTraversable) cible).entre(this);
-            this.c = ((CaseTraversable) cible);
-        }
+        // on a utiliser une calsse deolacer à la place
+    }
 
+    public int getCles(){
+        return this.cles;
     }
 
     public String getNom(){
@@ -67,27 +66,43 @@ public class Joueur implements Serializable, Comparable{
 
     public void paint (Graphics g, int translationX, int translationY){
         int tailleCase = this.c.getTailleCase();
-        g.setColor(new Color(190,100,50));
-        g.fillOval((this.c.getColone() - translationX) * tailleCase, (this.c.getLigne() - translationY) * tailleCase,tailleCase,tailleCase);
-    }
+        // sans le getImage on a un objet ImageIcone
+        Image joueurImage = (new ImageIcon("src/assets/images/perso.png")).getImage() ;
+        g.drawImage(joueurImage
+                , (this.c.getColone() - translationX) * tailleCase,
+                (this.c.getLigne() - translationY) * tailleCase, tailleCase ,tailleCase , new Color(255, true), null);}
+
 
     public void deplacer(CaseTraversable c) {
         if(c == null)
             return;
         if(c instanceof Porte){
+
             if(!((Porte) c).estOuverte() && cles > 0){
+
+                PlaySound porteOuverteSound = new PlaySound("src/assets/audio/porte_ouverte2.wav");
+                porteOuverteSound.jouer(false);
                 ((Porte) c).ouvrire();
                 cles--;
+                // on met le joueur dans sa nouvelle case c (la case elle sait qu'il ya le joueur)
                 c.entre(this);
+                // mais le joueur ne sait pas encore su'il a changé de case
+                // on le fait ici
                 this.c = c;
                 return;
-            } else if(((Porte) c).estOuverte()){
+            } else if (!((Porte) c).estOuverte()){
+                return;
+            }
+
+            else if(((Porte) c).estOuverte()){
                 c.entre(this);
                 this.c = c;
                 return;
             }
 
         } else if (c instanceof  Hall && ((Hall) c).possedeCle()){
+                PlaySound ramassageCleSound = new PlaySound("src/assets/audio/cle.wav");
+                ramassageCleSound.jouer(false);
                 cles++;
                 ((Hall) c).supprimerCle();
         }

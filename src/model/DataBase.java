@@ -7,10 +7,9 @@ import java.util.TreeSet;
 
 public class DataBase {
     //class qui nous permet au view d'intéragir avec la base de données
-    //Joueur.bin la base de données de sjoueurs
+    //Joueur.bin la base de données des joueurs
     //paraametresJeu, contient l'id du prochain joueur à ajouter à la base de données
-    public static final int move_sound = 0;
-    private final String paramsFile= "C:\\Users\\Oualid_CHABANE\\IdeaProjects\\projet_feu_furieux\\src\\files\\parametresJeu.bin", filePath = "C:\\Users\\Oualid_CHABANE\\IdeaProjects\\projet_feu_furieux\\src\\files\\joueurs.bin";
+    private final String paramsFile= "src/files/parametresJeu.bin", filePath = "src/files/joueurs.bin";
     public Joueur searchInFile(String name){
         try (ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream(filePath))) {
             boolean stop = false;
@@ -98,39 +97,7 @@ public class DataBase {
         }
     }
 
-    public void playSound(int type) {
-        String soundName;
-        switch (type) {
-            case DataBase.move_sound:
-                soundName = "path";
-                break;
-            default:
-                soundName = "anotherPath";
-                break;
-        }
-        AudioInputStream audioInputStream = null;
-        try {
-            audioInputStream = AudioSystem.getAudioInputStream(new File(soundName).getAbsoluteFile());
-        } catch (UnsupportedAudioFileException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        Clip clip = null;
-        try {
-            clip = AudioSystem.getClip();
-        } catch (LineUnavailableException e) {
-            throw new RuntimeException(e);
-        }
-        try {
-            clip.open(audioInputStream);
-        } catch (LineUnavailableException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        clip.start();
-    }
+
 
     public void writeGameParams(int params){
         DataOutputStream oos = null;
