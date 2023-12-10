@@ -1,8 +1,8 @@
 package model;
 
+import javax.swing.*;
 import java.awt.*;
 
-// POrte doit etendre CaseLibre
 
 public class Porte extends CaseTraversable{
     private boolean ouverte;
@@ -16,9 +16,6 @@ public class Porte extends CaseTraversable{
         return true;
     }
 
-    public void entre (Joueur j){
-        this.joueur = j;
-    }
 
     public void ouvrire(){
         this.ouverte = true;
@@ -28,25 +25,26 @@ public class Porte extends CaseTraversable{
         return ouverte;
     }
 
- /*   public boolean possedeJoueur (){
-         if (! ouverte){
-             return false;
-         }else {
-             return this.joueur != null;
-         }
-    }
-
-  */
 
     public void paint (Graphics g, int translationX, int translationY){
 
 
-            if (ouverte)
-                // porte ouverte
-                g.setColor(new Color(255, 255, 255));
-            else
-                g.setColor(new Color(0, 255, 0));
+            if (ouverte){
+                // sans le getImage on a un objet ImageIcone
+                Image porteouverteImage = (new ImageIcon("src/assets/images/double-door-opened.png")).getImage() ;
+                g.drawImage(porteouverteImage
+                        , (this.getColone() - translationX) * this.tailleCase,
+                        (this.getLigne() - translationY) * this.tailleCase, this.getTailleCase() ,this.getTailleCase() , Color.WHITE, null);}
+            else{
+                // sans le getImage on a un objet ImageIcone
+                Image porteFermeeImage = (new ImageIcon("src/assets/images/porte-fermee_noire.png")).getImage() ;
+                g.drawImage(porteFermeeImage
+                        , (this.getColone() - translationX) * this.tailleCase,
+                        (this.getLigne() - translationY) * this.tailleCase, this.getTailleCase() ,this.getTailleCase() , Color.WHITE, null);
 
-            super.paint(g, translationX, translationY);
+            }
+
+
+
     }
 }

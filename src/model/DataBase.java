@@ -2,11 +2,14 @@ package model;
 
 import javax.sound.sampled.*;
 import java.io.*;
+import java.util.ArrayList;
 import java.util.TreeSet;
 
 public class DataBase {
-    public static final int move_sound = 0;
-    private final String paramsFile= "C:\\Users\\Oualid_CHABANE\\IdeaProjects\\projet_feu_furieux\\src\\files\\parametresJeu.bin", filePath = "C:\\Users\\Oualid_CHABANE\\IdeaProjects\\projet_feu_furieux\\src\\files\\joueurs.bin";
+    //class qui nous permet au view d'intéragir avec la base de données
+    //Joueur.bin la base de données des joueurs
+    //paraametresJeu, contient l'id du prochain joueur à ajouter à la base de données
+    private final String paramsFile= "src/files/parametresJeu.bin", filePath = "src/files/joueurs.bin";
     public Joueur searchInFile(String name){
         try (ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream(filePath))) {
             boolean stop = false;
@@ -50,42 +53,51 @@ public class DataBase {
         }
     }
     public void updatePlayer(Joueur jr){
-
-    }
-
-    public void playSound(int type) {
-        String soundName;
-        switch (type) {
-            case DataBase.move_sound:
-                soundName = "path";
-                break;
-            default:
-                soundName = "anotherPath";
-                break;
-        }
-        AudioInputStream audioInputStream = null;
+        ObjectInputStream in = null;
+        ObjectOutputStream out = null;
+        ArrayList<Object> dataBase = new ArrayList<>();
         try {
-            audioInputStream = AudioSystem.getAudioInputStream(new File(soundName).getAbsoluteFile());
-        } catch (UnsupportedAudioFileException e) {
-            throw new RuntimeException(e);
+            in = new ObjectInputStream(new BufferedInputStream(new FileInputStream(this.filePath)));
+            while (true) {
+                Joueur jrRed = (Joueur) in.readObject();
+                if (jrRed.getId() ==  jr.getId())
+                    dataBase.add(jr);
+                else
+                    dataBase.add(jrRed);
+            }
+        }
+         catch(IOException | ClassNotFoundException e){
+             //EoF
+        } finally {
+            if(in != null) {
+                try {
+                    in.close();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }
+
+        try{
+             out = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(this.filePath)));
+             while(dataBase.size()>0){
+                out.writeObject(dataBase.remove(0));
+             }
+
         } catch (IOException e) {
             throw new RuntimeException(e);
+        } finally {
+            if(out != null) {
+                try {
+                    out.close();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
         }
-        Clip clip = null;
-        try {
-            clip = AudioSystem.getClip();
-        } catch (LineUnavailableException e) {
-            throw new RuntimeException(e);
-        }
-        try {
-            clip.open(audioInputStream);
-        } catch (LineUnavailableException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        clip.start();
     }
+
+
 
     public void writeGameParams(int params){
         DataOutputStream oos = null;

@@ -3,8 +3,12 @@ package controller_view;
 import com.sun.source.tree.Tree;
 import model.*;
 
+import javax.sound.sampled.Line;
 import javax.swing.*;
+import javax.swing.border.LineBorder;
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
@@ -12,28 +16,38 @@ import java.io.*;
 import java.util.TreeSet;
 
 public class Menu extends JSplitPane implements MouseListener{
-    private String ramy = "Ramy SAIL", oualid = "Oualid CHABANE";
-    JFrame frame;
-    pageJeu pagejeu;
-    DataPane dataPane;
-    EnsembleJoueurs listPlayer;
-    String terrain;
+    //La class menu pour afficher tout les joueurs classées selon le niveau et le score
+    //Le niveau s'incrémente en incrémentant le score (le niveau n+1 demande plus de score que le niveau n, donc le niveau s'incrémente d'ine maniere logarithmique
+    JFrame frame;//le meme frame dans l'acceuil est dans menu, qui sera aussi dans les autres class d'affichage
+    pageJeu pagejeu;//la class qui se charge d'afficher le jeu avec les animations
+    DataPane dataPane;//le panel qui contient les informations du joueur actuel, il se trouve sur la droite.
+    EnsembleJoueurs listPlayer;//le tableau des joueurs dans base de données
+    String terrain;// le chemin vers le fichier qui contient le terrain
+
+    public static int leftSize = 200; // la taille du coté gauche (qui va contenir les coord du joueur)
     public Menu(String name, JFrame frame, String terrain){
+        //initalisations...
         this.terrain = terrain;
         this.frame = frame;
         dataPane = new DataPane(name, this);
         listPlayer = new EnsembleJoueurs();
-        this.setDividerLocation(250);
+
+        this.setDividerLocation(Menu.leftSize);
         this.setResizeWeight(0.0);
         this.setLeftComponent(dataPane);
+
         this.setRightComponent(listPlayer);
-        this.frame.getContentPane().removeAll();
+        this.setBackground(new Color(0x232323));
+        this.frame.getContentPane().removeAll();//on supprime tous qui est dans le frame poue afficher le menu, on réutilise le meme frame dans tout le jeu
         this.setPreferredSize(new Dimension(1000, 600));
         this.frame.add(this);
-        this.frame.validate();
+        this.frame.validate();//pour actualiser(equivalent de repaint)
     }
     @Override
     public void mouseClicked(MouseEvent event) {
+
+
+        //en clicquant sur le bouton pour commencer, on crée un instance de la page d'affichage du jeu, c'est elle qui se charge de la mise à jour du contenu du frame
         this.pagejeu = new pageJeu(this, this.frame, this.terrain);
     }
 
@@ -49,13 +63,11 @@ public class Menu extends JSplitPane implements MouseListener{
 
     @Override
     public void mouseEntered(MouseEvent e) {
-        ((JButton) e.getSource()).setBackground(new Color(0x2980b9));
         ((JButton) e.getSource()).setPreferredSize(new Dimension(220, 60));
     }
 
     @Override
     public void mouseExited(MouseEvent e) {
-        ((JButton) e.getSource()).setBackground(new Color(0xf72585));
         ((JButton) e.getSource()).setPreferredSize(new Dimension(200, 50));
     }
 
@@ -64,63 +76,111 @@ public class Menu extends JSplitPane implements MouseListener{
     }
 
     public void update(){
-        listPlayer.update();
+        //Pour actualiser les données des joueurs dans le menu, en cas d'affichage plusieurs fois dans la meme partie
+        listPlayer.update(dataPane.getJoueur());// le tableau
+        dataPane.update();// les données du joueurs dans le dataPane
     }
+
+
+
+
+
 }
 
-class DataPane extends JPanel {
-    private Joueur jr;
-    private DataBase db;
-    private JButton buttonPlay;
+class DataPane extends JPanel  {
+    //Conteneur des données du joueur actuel.
+    private Joueur jr;//Le joueur actuel
+    private DataBase db;//l'intérmidiaire entre le view et le model
+    //parametres d'affichage
+    protected JButton buttonPlay;
     private JPanel userData;
     private JLabel title, name, score, level;
     public DataPane(String nameJr, MouseListener listner){
         this.db = new DataBase();
+        //1.On cherche le joueurs saisi dans l'acceuil
         this.jr = db.searchInFile(nameJr);
         if(this.jr == null){
+            //2.Si il n'existe pas dans la base de données, on crée un avec son pseudo, et sa case initial dans le jeu
             this.jr = new Joueur((CaseTraversable) Terrain.caseParDefaut, 300, 1, nameJr);
+            //3.Apres la créatin du joueur, on l'ajoute à la base de données
             db.insertIntoFile(this.jr);
         }
+        this.setBackground(new Color(0x232323));
         buttonPlay = new JButton();
-        buttonPlay.setPreferredSize(new Dimension(200, 50));
+        //buttonPlay.setPreferredSize(new Dimension(100, 50));
         buttonPlay.setFont(new Font("Arial", Font.BOLD, 16));
         buttonPlay.setText("Jouer");
-        buttonPlay.setForeground(new Color(0x463f3a));
-        buttonPlay.setBackground(new Color(0xf72585));
+        buttonPlay.setForeground(new Color(255,255,255));
+        buttonPlay.setBackground(new Color(0x000000));
         buttonPlay.setFocusPainted(false);
         buttonPlay.addMouseListener(listner);
+        buttonPlay.setBounds((int)(Menu.leftSize * 0.1),20,(int)(Menu.leftSize * 0.8),50);
+
+
+        JPanel coordPanel = new JPanel();
+        coordPanel.setLayout(new BorderLayout());
+        //coordPanel.setBorder(new LineBorder(Color.GREEN,2));
+
+        JPanel titlePanel = new JPanel();
+        titlePanel.setBackground(new Color(0x000000));
 
         userData = new JPanel();
         this.title = new JLabel("Cordonnees");
+        this.title.setForeground(Color.WHITE    );
+        //this.title.setBackground(Color.WHITE);
+        this.title.setFont(new Font( "MV Boli", Font.BOLD,20));
+        //this.title.setBorder(new LineBorder(Color.GREEN,2));
+        //this.title.setPreferredSize(new Dimension( 100,50));
+        titlePanel.add(this.title);
+        coordPanel.add(titlePanel, BorderLayout.NORTH);
+
         this.name = new JLabel("Pseudo: " + jr.getNom());
+        this.name.setForeground(Color.WHITE);
         this.score = new JLabel("Score: " + jr.getScore());
+        this.score.setForeground(Color.WHITE);
         this.level = new JLabel("Niveau: " + jr.getNiveau());
+        this.level.setForeground(Color.WHITE);
         this.userData.setLayout(new BoxLayout(userData, BoxLayout.Y_AXIS));
-        this.userData.add(title);
+        //this.userData.add(title);
         this.userData.add(name);
         this.userData.add(score);
         this.userData.add(level);
-        this.setLayout(new BorderLayout());
-        this.add(buttonPlay, BorderLayout.NORTH);
-        this.add(userData, BorderLayout.CENTER);
+        //this.userData.setBorder(new LineBorder(Color.GREEN,2));
+        this.userData.setBackground(new Color(0x111111));
+        //this.userData.setForeground(Color.WHITE);
+        this.setLayout(null);
+        this.add(buttonPlay);
+        coordPanel.add(this.userData, BorderLayout.CENTER);
+        coordPanel.setBackground(new Color(0x290025, true));
+        coordPanel.setBounds((int)(Menu.leftSize * 0.1),130,(int)(Menu.leftSize * 0.8),150);
+        this.add(coordPanel);
 
+        //this.setBorder(new LineBorder(Color.RED, 2));
     }
-
+    public void update(){
+        //la mise à jour des informations du joueur affichés sur l'écrane
+        this.name.setText("Pseudo: " + jr.getNom());
+        this.score.setText("Score: " + jr.getScore());
+        this.level.setText("Niveau: " + jr.getNiveau());
+    }
     public Joueur getJoueur(){
         return this.jr;
     }
+
 }
  class EnsembleJoueurs extends JScrollPane {
-     TreeSet<Joueur> listeJoueurs;
+    //Le tableau de tout les joueurs enregistré dans la base de données
+     TreeSet<Joueur> listeJoueurs;//Ordonnées par le score et le niveau
      JTable tableJoueurs;
 
      public EnsembleJoueurs() {
          DataBase db = new DataBase();
          listeJoueurs = db.getAllPlayers();
-         init();
+         //this.setBorder(new LineBorder(Color.GREEN,2));
+         init();//pour la création du tableau graphique avec son contenu
      }
 
-     private void init() {
+     public void init() {
          String[] columnsName = new String[]{"Classement", "Nom", "Niveau", "Score"};
          Object[][] data = new Object[listeJoueurs.size()][4];
          int i = 0;
@@ -133,13 +193,20 @@ class DataPane extends JPanel {
          }
          tableJoueurs = new JTable(data, columnsName);
          setViewportView(tableJoueurs);
+         this.tableJoueurs.setBackground(new Color(0x232323));
+         this.tableJoueurs.setForeground(Color.WHITE);
+         viewport.setBackground(new Color(0x232323));
      }
 
-     public void update(){
-         TreeSet<Joueur> temp= new TreeSet<>();
-         temp.addAll(listeJoueurs);
-         listeJoueurs = temp;
+     public void update(Joueur j){
+         //mise à jour des informations des joueurs dans la table
+         for(Joueur jr: this.listeJoueurs){
+             if(jr.getId() == j.getId()){
+                 this.listeJoueurs.remove(jr);
+                 this.listeJoueurs.add(j);
+                 break;
+             }
+         }
          init();
-         //Pour changer l'ordre des joueurs modifiés
      }
  }
