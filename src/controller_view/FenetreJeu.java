@@ -56,7 +56,7 @@ public class FenetreJeu extends JPanel implements KeyListener {
         infoCles.setBackground(Color.CYAN);
         // Le label qui va contenir l'icone de la clé
         JLabel labelCle = new JLabel();
-        ImageIcon iconeCle = new ImageIcon("src/assets/key.png");
+        ImageIcon iconeCle = new ImageIcon("src/assets/images/key.png");
         labelCle.setIcon(iconeCle);
         infoCles.add(labelCle);
         // Le label qui indique le nombre de clés
