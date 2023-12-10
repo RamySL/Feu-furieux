@@ -67,7 +67,7 @@ public class Joueur implements Serializable, Comparable{
     public void paint (Graphics g, int translationX, int translationY){
         int tailleCase = this.c.getTailleCase();
         // sans le getImage on a un objet ImageIcone
-        Image joueurImage = (new ImageIcon("src/assets/images/joueur.png")).getImage() ;
+        Image joueurImage = (new ImageIcon("src/assets/images/perso.png")).getImage() ;
         g.drawImage(joueurImage
                 , (this.c.getColone() - translationX) * tailleCase,
                 (this.c.getLigne() - translationY) * tailleCase, tailleCase ,tailleCase , new Color(255, true), null);}
